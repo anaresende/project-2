@@ -6,4 +6,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Project Name' });
 });
 
+router.get('/catarina', function(req, res, next) {
+  res.render('index', { title: 'Project Name' });
+});
+
 module.exports = router;
