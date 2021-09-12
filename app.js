@@ -3,9 +3,6 @@ require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 
-var indexRouter = require('./routes/index');
-var userRouter = require('./routes/user.route');
-
 var app = express();
 
 // Functional curling style of loading configuration
@@ -13,10 +10,20 @@ require('./config/db')
 require('./config/global')(app)
 
 
-app.use('/', indexRouter);
-app.use('/user', userRouter);
+// 👇 Start handling routes here
+
+const moviesRouter = require('./routes/movies.route')
+app.use('/movies', moviesRouter)
+
 const authRouter = require("./routes/auth.route");
 app.use('/auth', authRouter);
+
+var userRouter = require('./routes/user.route');
+app.use('/user', userRouter);
+
+var indexRouter = require('./routes/index');
+app.use('/', indexRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
