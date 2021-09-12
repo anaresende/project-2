@@ -17,9 +17,9 @@ class PopcornApi {
   // CHANGE THE PATHS ACCORIDNG TO API DOCUMENTATION
   getOneMovie = (id)=> {
     const movieDetails = this.api.request({
-      url: '/movie/{movie_id}',
+      url: `/movie/${id}`,
       params: {
-          query: id
+          append_to_response: 'videos,images,credits,recommendations'
         }
       }).then((response)=> response.data)
       .catch((error)=> error)
