@@ -2,8 +2,12 @@
 
 
 <h2>{{movie.original_title}}</h2>
-<br/>
-<h6>{{movie.genres.name}}</h6>
+<h6>
+
+    {{#each movie.genres}}
+       — {{this.name}}
+    {{/each}}
+</h6>
 <br/>
 <h4>{{movie.overview}}</h4>
 <br/>
