@@ -1,20 +1,45 @@
 const axios = require("axios");
-class Api {
+const { response } = require("express");
+class PopcornApi {
   constructor(baseURL) { //baseUrl could be overwritten in the route that uses the API
-    this.baseURL = baseURL,
+    this.baseURL = baseURL, 
     this.api = axios.create(
       {
-        baseURL: process.env.API_URL || this.baseURL
+        baseURL: process.env.API_URL || this.baseURL, 
+        timeout: 3000,
+        params: {
+          api_key: process.env.API_KEY,
+        },
+        method: 'GET', 
       }
     )
   }
-  // CHANGE THE PATHS ACCORIDNG TO API DOCUEMNTATION
-  getAll = () => this.api.get("/")
-  getOne = (id)=> this.api.get(`/${id}`)
-  createOne = (newEntityValues)=>this.api.post("/", newEntityValues)
-  deleteOne = (id)=> this.api.delete(`/${id}`)
-  updateOne = (id)=> this.api.put(`/${id}`)
+  // CHANGE THE PATHS ACCORIDNG TO API DOCUMENTATION
+  getOneMovie = (id)=> {
+    const movieDetails = this.api.request({
+      url: '/movie/{movie_id}',
+      params: {
+          query: id
+        }
+      }).then((response)=> response.data)
+      .catch((error)=> error)
+    return movieDetails
+  } 
+
+
+  getMovieBySearch = (search) => {
+    const searchResults = this.api.request({ 
+      url:'/search/movie',
+      params: {
+          query: search,
+        }
+      }).then((response)=> response.data)
+      .catch((error) => error)
+
+    return searchResults;
+  } 
+  
   // etc...
 }
 
-module.exports = new Api;
+module.exports = new PopcornApi;
