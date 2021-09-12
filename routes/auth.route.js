@@ -11,7 +11,7 @@ const PopcornApi = require('../api/api')
 
 //SIGN UP ROUTES
 router.get('/register', (req, res, next) => {
-	res.render('signup/register');
+	res.render('auth/register');
 });
 
 
@@ -32,24 +32,18 @@ router.post('/register', fileUploader.single("avatarUrl"),  (req, res, next) => 
      
 
  	if (!name || !username || !email|| !password || !favoriteMovie){
- 		res.render('signup/register', {
+ 		res.render('auth/register', {
 			errorMessage: 'Please fill the form with your personal information'
 		});
  	}
 
 	User.findOne({ email })
 		.then((user) => {
-
 			//If user exists, send error
 			if (user) {
-                
-				res.render('signup/register', { errorMessage: 'This user already exists' });
+				res.render('auth/register', { errorMessage: 'This user already exists' });
 				return;
-			
 			} else {
-
-                
-			
 				//Hash the password
 				const salt= bcrypt.genSaltSync(saltRounds);
 				const hash = bcrypt.hashSync(password, salt);
@@ -57,25 +51,60 @@ router.post('/register', fileUploader.single("avatarUrl"),  (req, res, next) => 
 				//If user does not exist, create it
 				User.create({ name, username, email, password: hash, avatarUrl, favoriteMovie })
 					.then((newUser) => {
-                        req.session.user = newUser;
+                        req.session.currentUser = newUser;
 						console.log(req.session);
 						//Once created, redirect
-						res.redirect('user/profile');
+						res.redirect('/user/profile');
 					})
 					.catch((err) => console.log(err));
 			}
 		})
-		.catch((err) => console.log(err));
+		.catch((err) => {
+			res.render('auth/register', {
+				errorMessage: 'Something went wrong, try again'
+			});	
+		});	
 	
  });
 
 
-// router.get('user/profile', (req, res, next) => {
-// 	res.render('user/profile');
-// });
+router.get('/login', (req, res, next) => {
+	res.render('auth/login');
+});
+
+router.post('/login', (req, res, next) => {
+	const { email, password } = req.body;
+	if (!email || !password) {
+		res.render('auth/login', {
+			errorMessage: 'Email and password are requiered'
+		});
+	}
+	console.log(email)
+	User.findOne({ email })
+		.then((user) => {
+			if (!user) {
+				res.render('auth/login', { errorMessage: 'Incorrect email or password' });
+			}
+			const passwordCorrect = bcrypt.compareSync(password, user.password);
+			if (passwordCorrect) {
+				req.session.currentUser = user;
+				res.redirect('/user/profile');
+			} else {
+				res.render('auth/login', { errorMessage: 'Incorrect email or password' });
+			}
+		}).catch((error) => {
+			res.render('auth/login', { errorMessage: 'User not found' });
+		});
+});
 
 
 
+router.get('/logout', (req, res) => {
+	req.session.destroy((err) => {
+		if (err) res.redirect('/');
+		else res.redirect('/auth/login');
+	});
+});
 
 
 
