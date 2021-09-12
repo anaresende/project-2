@@ -16,6 +16,11 @@ router.get('/:query', (req, res)=> {
 		})
  });
 
+router.post('/search', (req, res)=> {
+	const {search} = req.body
+	res.redirect(search);
+ });
+
  router.get('/movie-detail/:id', (req, res)=> {
 	const {id} = req.params 
 	PopcornApi.getOneMovie(id)
