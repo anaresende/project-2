@@ -1,6 +1,30 @@
 <!DOCTYPE html>
 <html>
   <head>
+
+    <div>
+      {{!-- our logo and title --}}
+      <nav>
+      <form action="/movies/search" method="POST">
+    <input type="text" name="search" placeholder="Search you Movie here!">
+    <button type="submit">Search</button>
+</form>
+      <ul>
+        <li><a href="/"> Home</a></li>
+        <li>{{#if user}}
+          <h3>Hello {{ user.name }}</h3>
+             <a href="auth/logout">Logout</a></li>
+        <li> <a href=""> My Profile</a></li>
+        <li>{{else}}
+   <a href="auth/register">Sign up</a></li>
+        <li><a href="auth/login">Login</a> 
+      {{/if}}</li>
+      <li><a href="">About us</a></li>
+      </ul>
+      </nav>
+    </div>
+
+
     <title>{{title}}</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
