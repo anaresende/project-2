@@ -76,7 +76,7 @@ router.post('/login', (req, res, next) => {
 	const { email, password } = req.body;
 	if (!email || !password) {
 		res.render('auth/login', {
-			errorMessage: 'Email and password are requiered'
+			errorMessage: 'Email and password are required'
 		});
 	}
 	console.log(email)

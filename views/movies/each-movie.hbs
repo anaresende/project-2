@@ -1,31 +1,66 @@
 <h1>here's your movie</h1>
 
 
-<h2>{{movie.original_title}}</h2>
+<h2>{{original_title}}</h2>
 <h6>
 
-    {{#each movie.genres}}
+    {{#each genres}}
        — {{this.name}}
     {{/each}}
 </h6>
 <br/>
-<h4>{{movie.overview}}</h4>
+<h4>{{overview}}</h4>
 <br/>
-<img src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" alt="" width="200px">
+<img src="https://image.tmdb.org/t/p/original/{{poster_path}}" alt="" width="200px">
 <br/>
 <h4>Cast:</h4>
 <ul>
-  {{#each movie.credits.cast}}
+  {{#each credits.cast}}
     <li>{{this.name}}</li>
   {{/each}}
 </ul>
 
 <h4>recommendations</h4>
 <ul>
-{{#each movie.recommendations.results}}
+{{#each recommendations.results}}
     <li>{{this.original_title}}</li>
 {{/each}}
 </ul>
+
+
+
+<h2>Add a Review</h2>
+<form action='/movies/movie-detail/{{id}}' method='POST'>
+
+  <textarea type='text' name='comment'></textarea>
+
+  <button type="submit">Send review</button>
+
+</form>
+
+{{#if reviews}}
+  <h3>List of reviews:</h3>
+
+  {{#each reviews}}
+    <h4>Author: {{this.user.username}}</h4>
+    
+    <p>Comment: </p>
+    <p>{{this.comment}}</p>
+
+
+    <form action='/movies/movie-detail/{{this.movie}}/delete/{{this._id}}' method="POST">
+      <button type="submit">Delete</button>
+    </form>
+
+    <form action='/movies/movie-detail/{{this.movie}}/edit/{{this._id}}' method="POST">
+      <button type="submit">Edit</button>
+    </form>
+  {{/each}}
+{{/if}}
+
+
+
+
 
 
 
