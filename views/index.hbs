@@ -1,12 +1,14 @@
 <h1>{{title}}</h1>
 <p>Welcome to {{title}}</p>
-<a href="auth/register">create user</a>
-<ul>
-{{#each users}}
-<li>User: {{ this.username}}</li>
-{{/each}}
-</ul>
 
+{{#if user}}
+    <h3>Hello {{ user.name }}</h3>
+    <a href="auth/logout">Logout</a>
+{{else}}
+   <a href="auth/register">Sign up</a>
+    <br/>
+    <a href="auth/login">Login</a> 
+{{/if}}
 
 <form action="/movies/search" method="POST">
     <input type="text" name="search">

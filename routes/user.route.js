@@ -3,6 +3,10 @@ var router = express.Router();
 const isLoggedIn = require('./../middleware/isLoggedIn')
 
 
+router.get('/profile', (req, res, next) => {
+	let user = req.session.currentUser
+	res.render('user/profile', {user: user})
+});
 
 
 /* GET users listing. */
