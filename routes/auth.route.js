@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt');
 const fileUploader = require('../config/cloudinary');
 const isNotLoggedIn = require('./../middleware/isNotLoggedIn')
 const currentUserEmail = ''
+const PopcornApi = require('../api/api')
 
 
 //SIGN UP ROUTES
@@ -16,10 +17,8 @@ router.get('/register', (req, res, next) => {
 
 router.get('/user/profile', (req, res, next) => {
 	let {id} = req.session.user
-	console.log('this req.session ', req.session.user)
 	User.findById(id)
 	.then((data)=>{ 
-	console.log('this is data =====', data)
 	res.render('user/profile', {user: data})
 	})
 });
@@ -69,7 +68,6 @@ router.post('/register', fileUploader.single("avatarUrl"),  (req, res, next) => 
 		.catch((err) => console.log(err));
 	
  });
-
 
 
 // router.get('user/profile', (req, res, next) => {
