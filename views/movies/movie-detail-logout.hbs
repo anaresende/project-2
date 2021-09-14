@@ -1,28 +1,28 @@
 <h1>here's your movie</h1>
 
 
-<h2>{{original_title}}</h2>
+<h2>{{movie.original_title}}</h2>
 <h6>
 
-    {{#each genres}}
+    {{#each movie.genres}}
        — {{this.name}}
     {{/each}}
 </h6>
 <br/>
-<h4>{{overview}}</h4>
+<h4>{{movie.overview}}</h4>
 <br/>
-<img src="https://image.tmdb.org/t/p/original/{{poster_path}}" alt="" width="200px">
+<img src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" alt="" width="200px">
 <br/>
 <h4>Cast:</h4>
 <ul>
-  {{#each credits.cast}}
+  {{#each movie.credits.cast}}
     <li>{{this.name}}</li>
   {{/each}}
 </ul>
 
 <h4>recommendations</h4>
 <ul>
-{{#each recommendations.results}}
+{{#each movie.recommendations.results}}
     <li>{{this.original_title}}</li>
 {{/each}}
 </ul>
