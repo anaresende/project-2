@@ -1,6 +1,16 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
+@import "https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css";
+
+html,
+body {
+  min-height: 100vh;
+}
+
 body {
   margin: 0;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: "Roboto";
+  background-color: #3d3d3d;
+  color: white;
 }
 
 a {
@@ -9,4 +19,29 @@ a {
 
 .hidden {
   display: none;
+}
+
+.header {
+  background: linear-gradient(90deg, rgba(83, 29, 171, 0.8) 0%, rgba(49, 186, 162, 0.512) 100%);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+}
+
+.navbar {
+  background: transparent;
+}
+
+.navbar-item {
+  color: white;
+
+}
+
+.popcorn-search-form {
+  width: 100%;
+  max-width: 500px;
+}
+
+.card-image img {
+  height: 450px;
 }

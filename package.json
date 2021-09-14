@@ -4,11 +4,13 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www"
+    "dev": "nodemon -e js,css,hbs"
   },
   "dependencies": {
     "axios": "^0.21",
     "bcrypt": "^5",
+    "bulma": "^0.9.3",
+    "bulma-carousel": "^4.0.24",
     "cloudinary": "^1",
     "connect-mongo": "^4",
     "cookie-parser": "^1",

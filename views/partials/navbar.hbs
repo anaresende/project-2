@@ -1,25 +1,50 @@
-<div>
-      <nav>
-
-        <form action="/movies/search" method="POST">
-        <input type="text" name="search" placeholder="Search you Movie here!">
-        <button type="submit">Search</button>
-        </form>
-
-          <ul>
-            <li><a href="/"> Home</a></li>
-
-            <li>{{#if user}} <h3>Hello {{ user.name }}</h3>
-                <a href="/auth/logout">Logout</a></li>
-
-            <li> <a href="/user/profile"> My Profile</a></li>
-
-            <li>{{else}} <a href="/auth/register">Sign up</a></li>
-
-            <li><a href="/auth/login">Login</a> {{/if}}</li>
-
-            <li><a href="/about-us">About us</a></li>
-          </ul>
-
-        </nav>
+<header class="header">
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img src="/images/popcorn-nav-logo.png" width="100%">
+      </a>
     </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
+        <form class="navbar-item popcorn-search-form control" action="/movies/search" method="POST">
+          <input class="input" type="text" name="search" placeholder="Search you Movie here!">
+          <button class="button" type="submit">Search</button>
+        </form>
+        
+        <a class="navbar-item"  href="/">
+          Home
+        </a>
+
+        <a class="navbar-item"  href="/about-us">
+          About Us
+        </a>
+      </div>
+
+    {{#if user}}
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <a class="" href="/user/profile">{{user.name}}</a>
+        </div>
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-light" href="/auth/logout">Logout</a>
+          </div>
+        </div>
+      </div>
+    
+    {{else}}
+        <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary"href="/auth/register">Sign up</a>
+            <a class="button is-light" href="/auth/login">Login</a>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+
+    </div>
+  </nav>
+</header>
