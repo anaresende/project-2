@@ -2,7 +2,9 @@ const express = require('express');
 const router = express.Router();
 const User = require('./../models/usermodel')
 const Review = require('./../models/reviewsmodel');
-const PopcornApi = require('../api/api')
+const PopcornApi = require('../api/api');
+const { populate } = require('./../models/usermodel');
+const isLoggedIn = require('../middleware/isLoggedIn');
 
 router.get('/:query', (req, res)=> {
 	const {query} = req.params
@@ -25,7 +27,7 @@ router.get('/movie-detail/:id', (req, res)=> {
 			.populate("user")
 			.then((reviews)=> {
 				movie.reviews = reviews
-				res.render('movies/each-movie', movie)})
+				res.render('movies/each-movie', {...movie, currentUser: req.session.currentUser})})
 		})
 });
 
@@ -33,8 +35,7 @@ router.post('/movie-detail/:id', (req, res) => {
 	const movieId = req.params.id;
 	const { comment } = req.body;
 	const {userId} = req.session.currentUser._id
-	console.log('here the user ======',req.session.currentUser._id)
-	
+
 	Review.create({
 		user: req.session.currentUser._id,
 		movie: movieId,
@@ -47,28 +48,51 @@ router.post('/movie-detail/:id', (req, res) => {
 
 router.post('/movie-detail/:movieId/delete/:reviewId', (req, res)=> {
 	const {reviewId, movieId} = req.params;
-
-    Review.findOneAndRemove({
-		user: req.session.currentUser._id,
-		_id: reviewId
-	})
-    .then(deletedReview => res.redirect(`/movies/movie-detail/${movieId}`))
-    .catch(error=> console.log(error))
+	console.log('entrouaqui')
+    Review.findById(reviewId)
+	.then(review => {
+		if (req.session.currentUser._id == review.user) {
+			review.remove()
+			.then(()=> {
+				res.redirect(`/movies/movie-detail/${movieId}`)	
+			}).catch(error => console.log(error))
+		} 
+	}).catch(error => console.log(error))
 })
 
-
-//Must be fixed
 router.post('/movie-detail/:movieId/edit/:reviewId', (req, res)=> {
 	const {reviewId, movieId} = req.params;
 	const { comment } = req.body;
-	console.log(reviewId, movieId)
-    Review.findByIdAndUpdate(
-		req.session.currentUser._id,
-		reviewId,
-		comment 
-	)
-    .then(updatedReview => res.redirect(`/movies/movie-detail/${movieId}`))
-    .catch(error=> console.log(error))
+	
+    Review.findById(reviewId)
+	.then(review => {
+		if (req.session.currentUser._id == review.user) {
+			review.comment = comment;
+			review.save()
+			.then(()=> {
+				res.redirect(`/movies/movie-detail/${movieId}`)	
+			}).catch(error => console.log(error))
+		} 
+	}).catch(error => console.log(error))
 })
+
+
+
+
+
+
+// //Must be fixed
+// router.post('/movie-detail/:movieId/edit/:reviewId', (req, res)=> {
+// 	const {reviewId, movieId} = req.params;
+// 	const { comment } = req.body;
+// 	console.log(reviewId, movieId)
+//     Review.findByIdAndUpdate(
+// 		req.session.currentUser._id,
+// 		reviewId,
+// 		comment 
+// 	)
+//     .then(updatedReview => res.redirect(`/movies/movie-detail/${movieId}`))
+//     .catch(error=> console.log(error))
+// })
 
 module.exports = router;

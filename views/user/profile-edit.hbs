@@ -1,0 +1,27 @@
+<form action="/user/profile/edit" method="POST" enctype="multipart/form-data">
+    <label for="name">Name: </label>
+    <br/>
+    <input type="text" name="name" value="{{user.name}}" minlength="3" maxlength="50" required>
+    <br/>
+    <label for="username">Username:</label>
+    <br/>
+    <input type="text" name="username" value="{{user.username}}" minlength="3" maxlength="10" required>       
+    <br/>
+    <label for="email">Email:</label>
+    <br/>
+    <input type="email" name="email" value="{{user.email}}" id="email" required>
+    <br/>
+    <label for="password">Password:</label>
+    <br/>
+    <input type="password" name="password" id="password" >
+    <br/>
+    <label for="Avatar">Profile Picture:</label>
+    <br/>
+    <input type="file" name="avatarUrl" value="{{user.avatarUrl}}" id="avatarUrl">
+    <br/>
+    <label for="favoriteMovie">What's your favorite movie ?</label>
+    <br/>
+    <input type="text" name="favoriteMovie" value="{{user.favoriteMovie}}" id="favoriteMovie" required>
+    <br/>
+    <button type="submit">Submit</button>
+</form>
