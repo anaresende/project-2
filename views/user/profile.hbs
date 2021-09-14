@@ -6,6 +6,8 @@
 <h3>{{user.email}}</h3>
 <h3>My favorite movie is: {{user.favoriteMovie}}</h3>
 
+<h6><a href="/user/profile/edit">edit profile</a></h6>
+
 {{#if user.watchlist}}
   <h2>Watchlist</h2>
   <ul>
@@ -16,6 +18,10 @@
         </a>
         <br/>
         <img src="https://image.tmdb.org/t/p/original/{{this.movie.poster_path}}" alt="" width="100px">
+        <br/>
+        <form action="/user/profile/watchlist/{{this.movie.id}}/remove" method="POST">
+        <button type="submit">remove from whatchlist</button>
+      </form>
       </li>
     {{/each}}
   </ul>

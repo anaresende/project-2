@@ -28,7 +28,7 @@
 </ul>
 
 
-{{#if currentUser}}
+
   {{#if watchlist}}
   <form action='/movies/movie-detail/{{id}}/watchlist/remove' method='POST'>
     <button type="submit">Remove from Watchlist</button>
@@ -44,7 +44,7 @@
     <textarea type='text' name='comment'></textarea>
     <button type="submit">Send review</button>
   </form>
-{{/if}}
+
 
 {{#if reviews}}
   <h3>List of reviews:</h3>
@@ -56,16 +56,10 @@
         <p>{{this.comment}}</p>
       </div>
 
-      {{#if currentUser._id}}
-        <form class="comment-edit" action='/movies/movie-detail/{{this.movie}}/edit/{{this._id}}' method="POST">
-          {{!-- <textarea>{{this.comment}}</textarea> --}}
-          <button type="submit">Edit</button>
-        </form>
-
         <form action='/movies/movie-detail/{{this.movie}}/delete/{{this._id}}' method="POST">
           <button type="submit">Delete</button>
         </form>
-      {{/if}}
+     
     </div>
   {{/each}}
 {{/if}}

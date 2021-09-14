@@ -22,25 +22,32 @@ router.post('/search', (req, res)=> {
 
 router.get('/movie-detail/:movieId', (req, res)=> {
 	const {movieId} = req.params 
-	PopcornApi.getOneMovie(movieId)
-		.then((movie)=> {
-			Review.find({movie: movieId})
-			.populate("user")
-			.then((reviews)=> {
-				movie.reviews = reviews
+	if (req.session.currentUser) {
+		PopcornApi.getOneMovie(movieId)
+			.then((movie)=> {
+				Review.find({movie: movieId})
+				.populate("user")
+				.then((reviews)=> {
+					movie.reviews = reviews
 
-				Watchlist.findOne({"movie.id": movieId, user: req.session.currentUser._id})
-					.then((watch) => {
-						console.log('found', watch)
-						movie.watchlist = watch;
-						res.render('movies/each-movie', {...movie, currentUser: req.session.currentUser})
-					})
-					.catch((error) => {
-						console.log(error)
-					})
-				
+					Watchlist.findOne({"movie.id": movieId, user: req.session.currentUser._id})
+						.then((watch) => {
+							console.log('found', watch)
+							movie.watchlist = watch;
+							res.render('movies/each-movie', {...movie, currentUser: req.session.currentUser})
+						})
+						.catch((error) => {
+							console.log(error)
+						})
+					
+				})
 			})
-		})
+		} else {
+			PopcornApi.getOneMovie(movieId)
+			.then((movie)=>{
+				res.render('movies/movie-detail-logout', {movie})
+			})
+		}
 });
 
 router.post('/movie-detail/:movieId/watchlist/add', (req, res) => {
