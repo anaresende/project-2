@@ -11,7 +11,7 @@ router.get('/:query', (req, res)=> {
 	const {query} = req.params
 	PopcornApi.getMovieBySearch(query)
 		.then((search) =>{
-			res.render('movies/movie-list', {movies: search.results})
+			res.render('movies/movie-list', {movies: search.results, user: req.session.currentUser})
 		})
 });
 
@@ -34,7 +34,7 @@ router.get('/movie-detail/:movieId', (req, res)=> {
 						.then((watch) => {
 							console.log('found', watch)
 							movie.watchlist = watch;
-							res.render('movies/each-movie', {...movie, currentUser: req.session.currentUser})
+							res.render('movies/each-movie', {...movie, user: req.session.currentUser})
 						})
 						.catch((error) => {
 							console.log(error)
