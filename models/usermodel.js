@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-// TODO: Please make sure you edit the user model to whatever makes sense in this case
 const userSchema = new Schema({
 	name: {
 		type: String,
@@ -24,7 +23,6 @@ const userSchema = new Schema({
 		required: true
 	},
 	avatarUrl: String,
-	
 });
 
 const User = model('User', userSchema);
