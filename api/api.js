@@ -39,7 +39,14 @@ class PopcornApi {
     return searchResults;
   } 
   
-  // etc...
+  getUpcomingMovies = () => {
+    const upcomingMovies = this.api.request({ 
+        url:'/movie/upcoming',
+      }).then((response)=> response.data)
+      .catch((error) => error)
+
+    return upcomingMovies;
+  } 
 }
 
 module.exports = new PopcornApi;
