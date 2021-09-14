@@ -9,3 +9,17 @@
     <br/>
     <a href="auth/login">Login</a> 
 {{/if}} --}}
+
+
+<h2>upcomingMovies</h2>
+<ul>
+{{#each upcomingMovies}}
+    <li>
+        {{this.original_title}}
+        <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="movie poster" width="250px">
+    </li>
+
+
+    
+{{/each}}
+</ul>
