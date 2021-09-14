@@ -24,9 +24,8 @@ router.get('/profile/edit', (req, res) => {
 
 router.post('/profile/edit', fileUploader.single("avatarUrl"), (req, res) => {
 	const { name, username, email, password, favoriteMovie } = req.body
+	const avatarUrl = req.file?.path;
 	const user = req.session.currentUser
-	console.log("chegou aqui", name, username, email, password, favoriteMovie, user)
-
 	
 	User.findById(user._id)
 	.then (user => {
@@ -35,6 +34,10 @@ router.post('/profile/edit', fileUploader.single("avatarUrl"), (req, res) => {
 			user.username = username;
 			user.email = email;
 			user.favoriteMovie = favoriteMovie;
+
+			if(avatarUrl) {
+				user.avatarUrl = avatarUrl;
+			}
 		
 			if (password) {
 				const salt= bcrypt.genSaltSync(saltRounds);
@@ -42,11 +45,11 @@ router.post('/profile/edit', fileUploader.single("avatarUrl"), (req, res) => {
 				user.password = hash;
 			}
 			
-			console.log("chegou aqui", name, username, email, password, favoriteMovie )
 			user.save()
-			.then(()=> {
-				res.render('user/profile', {user: user})
-			}).catch(error => error)
+				.then((user)=> {
+					req.session.currentUser = user;
+					res.redirect('/user/profile')
+				}).catch(error => error)
 		}
 	}).catch(error => error)
 });
