@@ -29,6 +29,16 @@
 
 
 {{#if currentUser}}
+  {{#if watchlist}}
+  <form action='/movies/movie-detail/{{id}}/watchlist/remove' method='POST'>
+    <button type="submit">Remove from Watchlist</button>
+  </form>
+  {{else}}
+  <form action='/movies/movie-detail/{{id}}/watchlist/add' method='POST'>
+    <button type="submit">Add to Watchlist</button>
+  </form>
+  {{/if}}
+
   <h2>Add a Review</h2>
   <form action='/movies/movie-detail/{{id}}' method='POST'>
     <textarea type='text' name='comment'></textarea>
@@ -59,8 +69,3 @@
     </div>
   {{/each}}
 {{/if}}
-
-  <a href='/movies/{{movie._id}}'>Send to list</a> <!-- here should be a button to send the movie to the list for the user -->
-  <a href='/movies/{{movie._id}}'>To Watch list</a> <!-- here should be a button to send the movie to the Watch list for the user -->
-  <!-- User Rate/Ranking the movie -->
-  <!-- User Add Review for the movie -->

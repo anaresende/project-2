@@ -1,9 +1,25 @@
 <h1>Profile</h1>
 
-<h2>{{user.username}}</h2>
+<h2>Hello {{user.name}}</h2>
 <img src="{{user.avatarUrl}}" width="100px"/>
+<h3>{{user.username}}</h3>
+<h3>{{user.email}}</h3>
 <h3>My favorite movie is: {{user.favoriteMovie}}</h3>
 
+{{#if user.watchlist}}
+  <h2>Watchlist</h2>
+  <ul>
+    {{#each user.watchlist}}
+      <li>
+        <a href="/movies/movie-detail/{{this.movie.id}}">
+          <h5>{{this.movie.original_title}}</h5>
+        </a>
+        <br/>
+        <img src="https://image.tmdb.org/t/p/original/{{this.movie.poster_path}}" alt="" width="100px">
+      </li>
+    {{/each}}
+  </ul>
+{{/if}}
 <form action="/auth/logout" method="GET">
   <button type="submit">Logout</button>
 </form>

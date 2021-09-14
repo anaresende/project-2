@@ -1,5 +1,6 @@
 var express = require('express');
 const User = require('../models/usermodel');
+const Watchlist = require('../models/watchlistmodel');
 var router = express.Router();
 const saltRounds = process.env.SALT || 10;
 const bcrypt = require('bcrypt');
@@ -9,7 +10,16 @@ const isLoggedIn = require('./../middleware/isLoggedIn')
 
 router.get('/profile', isLoggedIn, (req, res, next) => {
 	const user = req.session.currentUser
-	res.render('user/profile', {user: user})
+	Watchlist.find({ user: user._id})
+		.then((watch) => {
+			console.log('found', watch)
+			user.watchlist = watch;
+		
+			res.render('user/profile', {user: user})
+		})
+		.catch((error) => {
+			console.log(error)
+		})
 });
 
 

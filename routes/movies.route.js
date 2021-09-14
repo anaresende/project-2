@@ -5,6 +5,7 @@ const Review = require('./../models/reviewsmodel');
 const PopcornApi = require('../api/api');
 const { populate } = require('./../models/usermodel');
 const isLoggedIn = require('../middleware/isLoggedIn');
+const Watchlist = require('../models/watchlistmodel');
 
 router.get('/:query', (req, res)=> {
 	const {query} = req.params
@@ -19,22 +20,68 @@ router.post('/search', (req, res)=> {
 	res.redirect(search);
 });
 
-router.get('/movie-detail/:id', (req, res)=> {
-	const {id} = req.params 
-	PopcornApi.getOneMovie(id)
+router.get('/movie-detail/:movieId', (req, res)=> {
+	const {movieId} = req.params 
+	PopcornApi.getOneMovie(movieId)
 		.then((movie)=> {
-			Review.find({movie: id})
+			Review.find({movie: movieId})
 			.populate("user")
 			.then((reviews)=> {
 				movie.reviews = reviews
-				res.render('movies/each-movie', {...movie, currentUser: req.session.currentUser})})
+
+				Watchlist.findOne({"movie.id": movieId, user: req.session.currentUser._id})
+					.then((watch) => {
+						console.log('found', watch)
+						movie.watchlist = watch;
+						res.render('movies/each-movie', {...movie, currentUser: req.session.currentUser})
+					})
+					.catch((error) => {
+						console.log(error)
+					})
+				
+			})
 		})
 });
+
+router.post('/movie-detail/:movieId/watchlist/add', (req, res) => {
+	const {movieId} = req.params 
+
+	PopcornApi.getOneMovie(movieId)
+		.then((movie)=> {
+			Watchlist.create({
+				user: req.session.currentUser._id,
+				movie: {
+					id: movie.id,
+					original_title: movie.title,
+					poster_path: movie.poster_path,
+				},
+			}).then(() => res.redirect(`/movies/movie-detail/${movieId}`))
+			
+		})
+		.catch((error) => console.log(error))
+});
+
+
+router.post('/movie-detail/:movieId/watchlist/remove', (req, res) => {
+	const {movieId} = req.params 
+
+	PopcornApi.getOneMovie(movieId)
+		.then((movie)=> {
+			Watchlist.findOne({"movie.id": movieId, user: req.session.currentUser._id})
+				.then((watch) => {
+					watch.remove()
+						.then(() => res.redirect(`/movies/movie-detail/${movieId}`))
+						.catch((error) => console.log(error))
+				})
+				.catch((error) => console.log(error))
+		})
+		.catch((error) => console.log(error))
+});
+
 
 router.post('/movie-detail/:id', (req, res) => {
 	const movieId = req.params.id;
 	const { comment } = req.body;
-	const {userId} = req.session.currentUser._id
 
 	Review.create({
 		user: req.session.currentUser._id,
