@@ -1,25 +1,17 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
 
-{{!-- {{#if user}}
-    <h3>Hello {{ user.name }}</h3>
-    <a href="auth/logout">Logout</a>
-{{else}}
-   <a href="auth/register">Sign up</a>
-    <br/>
-    <a href="auth/login">Login</a> 
-{{/if}} --}}
-
-
-<h2>upcomingMovies</h2>
-<ul>
-{{#each upcomingMovies}}
-    <li>
-        {{this.original_title}}
-        <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="movie poster" width="250px">
-    </li>
-
-
+<h1>upcomingMovies</h1>
+<section class="section">
+  <div id="carousel-upcoming">
     
-{{/each}}
-</ul>
+    {{#each upcomingMovies}}
+        <div class="item">
+            <a href="/movies/movie-detail/{{this.id}}">
+                <div class="card-image">
+                        <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="movie poster to {{this.original_title}}">
+                </div>
+            </a>
+        </div>
+    {{/each}}
+
+  </div>
+</section>
