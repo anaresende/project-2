@@ -12,6 +12,12 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
 const hbs = require('hbs')
+// Handlebars = require("hbs")
+
+hbs.registerHelper('if_eq', function(arg1, arg2, options) {
+    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+});
+
 
 // Middleware configuration
 module.exports = (app) => {

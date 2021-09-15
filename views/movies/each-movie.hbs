@@ -16,7 +16,14 @@
 <h4>Cast:</h4>
 <ul>
   {{#each credits.cast}}
-    <li>{{this.name}}</li>
+    <li><a href="/people/{{this.id}}">{{this.name}}</a> as {{this.character}}</li>
+  {{/each}}
+</ul>
+
+<h4>Crew:</h4>
+<ul>
+  {{#each credits.crew}}
+    <li>{{this.job}}: <a href="/people/{{this.id}}">{{this.name}}</a></li>
   {{/each}}
 </ul>
 
