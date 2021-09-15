@@ -1,34 +1,56 @@
-<h1>Get your popcorns ready, it's movie time!</h1>
+<section class="section">
+    <div class="container">    
+        <h1>Get your popcorns ready, it's movie time!</h1>
 
+        <form action="/auth/register" method="POST" enctype="multipart/form-data">
+            <div class="container">
+                <div class="columns mt-6 is-justify-content-center">
+                    <div class= "column is-4">
+                        <div class="field mt-4">
+                            <input class="input" type="text" mname="name" minlength="3" maxlength="50" required placeholder="Name">
+                        </div>
+                        <div class="field mt-4">
+                            <input class="input" type="text" name="username" minlength="3" maxlength="10" required placeholder="Username">
+                        </div>
+                        <div class="field mt-4">
+                            <div class="control has-icons-left has-icons-right">
+                                <input class="input" type="email" name="email" id="email" required placeholder="Email">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <span class="icon is-small is-right">
+                                    <i class="fas fa-check"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field mt-4">
+                            <div class="control has-icons-left">
+                                <input class="input" type="password" name="password" id="password" required placeholder="Password">
+                                <span class="icon is-small is-left">
+                                    <i class="fas fa-lock"></i>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="field mt-4">
+                            <input class="input" type="text" name="favoriteMovie" id="favoriteMovie" required placeholder="What's your favorite movie?">
+                        </div>
 
-<form action="/auth/register" method="POST" enctype="multipart/form-data">
-    <label for="name">Name: </label>
-    <br/>
-    <input type="text" name="name" minlength="3" maxlength="50" required>
-    <br/>
-    <label for="username">Username:</label>
-    <br/>
-    <input type="text" name="username" minlength="3" maxlength="10" required>       
-    <br/>
-    <label for="email">Email:</label>
-    <br/>
-    <input type="email" name="email" id="email" required>
-    <br/>
-    <label for="password">Password:</label>
-    <br/>
-    <input type="password" name="password" id="password" required>
-    <br/>
-    <label for="Avatar">Profile Picture:</label>
-    <br/>
-    <input type="file" name="avatarUrl" id="avatarUrl">
-    <br/>
-    <label for="favoriteMovie">What's your favorite movie ?</label>
-    <br/>
-    <input type="text" name="favoriteMovie" id="favoriteMovie" required>
-    <br/>
-    <button type="submit">Submit</button>
-</form>
+                        <div class="field mt-4">
+                            <input class="mt-4" type="file" name="avatarUrl" id="avatarUrl">
+                        </div>
+                        
+                        <div class="field mt-4 is-justify-content-center">
+                    <button class="button is-primary" type="submit">Submit</button>
+                        </div> 
+                        </div>
+                    </div> 
+                </div>
+                
+            </div>       
+        </form>
 
-{{#if errorMessage}}
-<p>{{errorMessage}}</p>
-{{/if}}
+        {{#if errorMessage}}
+            <p>{{errorMessage}}</p>
+        {{/if}}
+    </div>
+</section>
