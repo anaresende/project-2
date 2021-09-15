@@ -60,6 +60,19 @@ class PopcornApi {
     return topRatedMovies
   }
 
+  getPopularMovies = () => {
+    const popularMovies = this.api.request({
+      url:'/movie/popular',
+      params: {
+        append_to_response: 'videos'
+      },
+      method: 'GET'
+    }).then((response) => response.data)
+    .catch((error) => error)
+
+    return popularMovies
+  }
+
 }
 
 

@@ -1,6 +1,4 @@
 window.onload = ()  => {
-    console.log(bulmaCarousel);
-
     bulmaCarousel.attach('#carousel-upcoming', {
       slidesToScroll: 1,
       slidesToShow: 3,
@@ -17,7 +15,7 @@ window.onload = ()  => {
 
     bulmaCarousel.attach('#carousel-watchlist', {
       slidesToScroll: 1,
-      slidesToShow: 3,
+      slidesToShow: 4,
       pagination: false,
       
     });
