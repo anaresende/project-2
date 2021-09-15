@@ -73,6 +73,19 @@ class PopcornApi {
     return popularMovies
   }
 
+  getPeopleDetails = (person_id) => {
+    const peopleDetails = this.api.request({
+      url: `/person/${person_id}`,
+      method: 'GET',
+      params: {
+        append_to_response: 'movie_credits'
+      }
+    }).then((response) => response.data)
+    .catch((error) => error)
+    
+    return peopleDetails
+  }
+
 }
 
 

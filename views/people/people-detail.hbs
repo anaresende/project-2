@@ -1,0 +1,37 @@
+<h1>here's People</h1>
+
+
+<img src="https://image.tmdb.org/t/p/original/{{people.profile_path}}" alt="" width="200px">
+<br/>
+<h2>{{people.name}}</h2>
+<br/>
+<p>{{people.biography}}</p>
+<p>known for: {{people.known_for_department}}</p>
+<br/>
+
+{{#if_eq people.known_for_department 'Acting'}}
+    <section class="section">
+    <div class="container">
+      <h1 class="is-size-4 mb-6">Known for</h1>
+      
+      <div id="carousel-watchlist">  
+        {{#each people.movie_credits.cast}}
+            <div class="item">
+                <a href="/movies/movie-detail/{{this.id}}">
+                    <div class="card-image">
+                      <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="movie poster to {{this.original_title}}">
+                    </div>
+                </a>
+            </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+{{/if_eq}}
+
+
+
+
+
+
+

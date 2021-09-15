@@ -12,7 +12,10 @@ require('./config/global')(app)
 
 // 👇 Start handling routes here
 
-const moviesRouter = require('./routes/movies.route')
+const peopleRouter = require('./routes/people.route');
+app.use('/people', peopleRouter)
+
+const moviesRouter = require('./routes/movies.route'); 
 app.use('/movies', moviesRouter)
 
 const authRouter = require("./routes/auth.route");
