@@ -50,6 +50,9 @@
                 <a href="/movies/movie-detail/{{this.movie.id}}">
                     <div class="card-image">
                       <img src="https://image.tmdb.org/t/p/original/{{this.movie.poster_path}}" alt="movie poster to {{this.movie.original_title}}">
+                      <form class="remove-from-list-profile" action="/user/profile/watchlist/{{this.movie.id}}/remove" method="POST">
+                        <button class="btn-remove-watchlist-profile"type="submit">remove from whatchlist</button>
+                      </form>
                     </div>
                 </a>
             </div>

@@ -1,0 +1,65 @@
+<h1>here's your movie</h1>
+
+
+<h2>{{original_title}}</h2>
+<h6>
+
+    {{#each genres}}
+       — {{this.name}}
+    {{/each}}
+</h6>
+<br/>
+<h4>{{overview}}</h4>
+<br/>
+<img src="https://image.tmdb.org/t/p/original/{{poster_path}}" alt="" width="200px">
+<br/>
+<h4>Cast:</h4>
+<ul>
+  {{#each credits.cast}}
+    <li>{{this.name}}</li>
+  {{/each}}
+</ul>
+
+<h4>recommendations</h4>
+<ul>
+{{#each recommendations.results}}
+    <li>{{this.original_title}}</li>
+{{/each}}
+</ul>
+
+
+
+  {{#if watchlist}}
+  <form action='/movies/movie-detail/{{id}}/watchlist/remove' method='POST'>
+    <button type="submit">Remove from Watchlist</button>
+  </form>
+  {{else}}
+  <form action='/movies/movie-detail/{{id}}/watchlist/add' method='POST'>
+    <button type="submit">Add to Watchlist</button>
+  </form>
+  {{/if}}
+
+  <h2>Add a Review</h2>
+  <form action='/movies/movie-detail/{{id}}' method='POST'>
+    <textarea type='text' name='comment'></textarea>
+    <button type="submit">Send review</button>
+  </form>
+
+
+{{#if reviews}}
+  <h3>List of reviews:</h3>
+
+  {{#each reviews}}
+    <div class="comment">
+      <h5>{{this.user.username}}</h5>
+      <div class="comment-inline">
+        <p>{{this.comment}}</p>
+      </div>
+
+        <form action='/movies/movie-detail/{{this.movie}}/delete/{{this._id}}' method="POST">
+          <button type="submit">Delete</button>
+        </form>
+     
+    </div>
+  {{/each}}
+{{/if}}

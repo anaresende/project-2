@@ -1,4 +1,5 @@
 var express = require('express');
+const { getPopularMovies } = require('../api/api');
 var router = express.Router();
 const PopcornApi = require('../api/api');
 
@@ -11,18 +12,19 @@ router.get('/', function(req, res, next) {
 
       PopcornApi.getTopRatedMovies()
         .then((topRatedMovies) => {
-          res.render('index', { 
-            title: 'Project Name',
-            user,
-            topRatedMovies: topRatedMovies.results,
-            upcomingMovies: upcomingMovies.results 
+
+          PopcornApi.getPopularMovies()
+           .then((popularMovies)=> {
+            res.render('index', { 
+              title: 'Popcorn',
+              user,
+              topRatedMovies: topRatedMovies.results,
+              upcomingMovies: upcomingMovies.results,
+              popularMovies: popularMovies.results,
+            });
           });
         })
-      // res.render('index', { 
-      //   title: 'Project Name',
-      //   user,
-      //   upcomingMovies: upcomingMovies.results 
-      // });
+      
     })
 
   
