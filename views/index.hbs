@@ -1,17 +1,38 @@
 
-<h1>upcomingMovies</h1>
 <section class="section">
-  <div id="carousel-upcoming">
-    
-    {{#each upcomingMovies}}
-        <div class="item">
-            <a href="/movies/movie-detail/{{this.id}}">
-                <div class="card-image">
-                        <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="movie poster to {{this.original_title}}">
-                </div>
-            </a>
-        </div>
-    {{/each}}
+  <div class="container">
+    <h1 class="is-size-4 mb-6">Upcoming</h1>
+    <div id="carousel-upcoming">
+      
+      {{#each upcomingMovies}}
+          <div class="item">
+              <a href="/movies/movie-detail/{{this.id}}">
+                  <div class="card-image">
+                          <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="movie poster to {{this.original_title}}">
+                  </div>
+              </a>
+          </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
 
+
+<section class="section">
+  <div class="container">
+    <h1 class="is-size-4 mb-6">Top Rated</h1>
+    <div id="carousel-topRated">
+      
+      {{#each topRatedMovies}}
+          <div class="item">
+              <a href="/movies/movie-detail/{{this.id}}">
+                  <div class="card-image">
+                          <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="movie poster to {{this.original_title}}">
+                  </div>
+              </a>
+          </div>
+      {{/each}}
+
+    </div>
   </div>
 </section>

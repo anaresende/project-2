@@ -10,7 +10,6 @@ class PopcornApi {
         params: {
           api_key: process.env.API_KEY,
         },
-        method: 'GET', 
       }
     )
   }
@@ -20,7 +19,8 @@ class PopcornApi {
       url: `/movie/${id}`,
       params: {
           append_to_response: 'videos,images,credits,recommendations'
-        }
+        },
+      method: 'GET', 
       }).then((response)=> response.data)
       .catch((error)=> error)
     return movieDetails
@@ -32,7 +32,8 @@ class PopcornApi {
       url:'/search/movie',
       params: {
           query: search,
-        }
+        },
+      method: 'GET', 
       }).then((response)=> response.data)
       .catch((error) => error)
 
@@ -42,11 +43,25 @@ class PopcornApi {
   getUpcomingMovies = () => {
     const upcomingMovies = this.api.request({ 
         url:'/movie/upcoming',
+        method: 'GET', 
       }).then((response)=> response.data)
       .catch((error) => error)
 
     return upcomingMovies;
   } 
+
+  getTopRatedMovies = () => {
+    const topRatedMovies = this.api.request({
+      url:'/movie/top_rated',
+      method: 'GET', 
+    }).then((response)=>response.data)
+    .catch((error) => error)
+
+    return topRatedMovies
+  }
+
 }
+
+
 
 module.exports = new PopcornApi;
