@@ -20,6 +20,13 @@ window.onload = ()  => {
       
     });
 
+    bulmaCarousel.attach('#carousel-recomendation', {
+      slidesToScroll: 1,
+      slidesToShow: 8,
+      pagination: false,
+      infinite: true
+    });
+
 
 
 };

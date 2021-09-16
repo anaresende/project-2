@@ -1,107 +1,151 @@
 <section class="section cover-hero" style="background-image: url('https://image.tmdb.org/t/p/original/{{backdrop_path}}')">
 </section>
-<div >
-     {{#each this.genre_ids}}
-        <span class="genre-tag">{{this}}</span>
-      {{/each}}
-</div>  
-
-<h2>{{original_title}}</h2>
-
-  <div class="overview">
-  <h4>{{overview}}</h4>
-
-
-
-</div>
-
-  {{#if watchlist}}
-  <form action='/movies/movie-detail/{{id}}/watchlist/remove' method='POST'>
-    <button class="btn-remove-watchlist-profile "type="submit">Remove from Watchlist</button>
-  </form>
-  {{else}}
-  <form action='/movies/movie-detail/{{id}}/watchlist/add' method='POST'>
-    <button class="btn-remove-watchlist-profile" type="submit">Add to Watchlist</button>
-  </form>
-  {{/if}}
-
-  <h2>Add a Review</h2>
-  <form action='/movies/movie-detail/{{id}}' method='POST'>
-      <button type="submit">Send review</button>
-    <textarea type='text' name='comment'></textarea>
-  </form>
-
-
-{{#if reviews}}
-  <h3>List of reviews:</h3>
-
-  {{#each reviews}}
-    <div class="comment">
-      <h5>{{this.user.username}}</h5>
-      <div class="comment-inline">
-        <p>{{this.comment}}</p>
-      </div>
-
-        <form action='/movies/movie-detail/{{this.movie}}/delete/{{this._id}}' method="POST">
-          <button type="submit">Delete</button>
-        </form>
-     
-    </div>
-  {{/each}}
-{{/if}}
-
-<h4>Cast:</h4>
-<div class="display-row">
-<div class="container">
-  <div class="row">
-  {{#each credits.cast}}
-        <div class="our-team">
-          <div class="picture">
-    <img src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="" width="75px">
-            </div>
-            <div class="team-content">
-    <h3 class="name"><a href="/people/{{this.id}}">{{this.name}}</a> as {{this.character}}</a></h3>
-  {{/each}}
-          </div>
-      </div>
-    </div>
-</div>
-</div>
-
-<h4>Crew:</h4>
-<div class="display-row">
-<div class="container">
-  <div class="row">
-      {{#each credits.crew}}
-      <div class="our-team">
-        <div class="picture">
-          <img class="img-fluid" src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="">
-        </div>
-        <div class="team-content">
-          <h3 class="name"><a href="/people/{{this.id}}">{{this.name}}</a></h3>
-          <h4 class="title">{{this.job}}</h4>
+<section class="section movie-information">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+          {{#each genres}}
+              <span class="genre-tag">{{this.name}}</span>
           {{/each}}
+          <h2 class="is-size-1">{{original_title}}</h2>
+          <div class="overview movie-description">
+            <h4>{{overview}}</h4>
+          <div class="toggle-watchlist">
+            {{#if watchlist}}
+            <form action='/movies/movie-detail/{{id}}/watchlist/remove' method='POST'>
+              <button class="btn-remove-watchlist-profile "type="submit">Remove from Watchlist</button>
+            </form>
+            {{else}}
+            <form action='/movies/movie-detail/{{id}}/watchlist/add' method='POST'>
+              <button class="btn-remove-watchlist-profile" type="submit">Add to Watchlist</button>
+            </form>
+            {{/if}}
           </div>
-      </div>
+          </div>
+      </div>  
     </div>
-</div>
-</div>
-
-
-<h4>Recommendations:</h4>
-
-<section class="section">
-    <div class="container">
-      <div id="carousel-watchlist">
-        {{#each recommendations.results}}
-        <div class="item">
-            <div class="card-image">
-            <img src="https://image.tmdb.org/t/p/original/{{poster_path}}" alt="movie poster to {{this.original_title}}">
-            </div>
-        </div> 
-         {{/each}}
-      </div>
-    </div>
+  </div>
 </section>
 
+<section class="section">
+  <div class="container">
+    <h4 class="is-size-3 cast-title">Cast</h4>
+    <div class="columns is-multiline">
+      {{#each credits.cast}}
+        <div class="column is-one-third">
+          <div class="our-team is-flex is-flex-direction-row card-cast">
+            <div class="picture">
+              <img src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="">
+            </div>
+            <div class="team-content">
+              <h3 class="name is-size-4">
+                <a class="link"href="/people/{{this.id}}">{{this.name}}</a>
+              </h3>
+              <h4 class="name is-size-7">
+                as {{this.character}}</a>
+              </h4>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container">
+    <h4 class="is-size-3 cast-title">Crew</h4>
+    <div class="columns is-multiline">
+      {{#each credits.crew}}
+        <div class="column is-one-fourth">
+          <div class="our-team is-flex is-flex-direction-row card-cast">
+            <div class="picture">
+              {{#if profile_path}}
+                <img src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="">
+              {{else}}
+                <img src="/images/placeholderposter.png" alt="profile picture not found">
+              {{/if}}
+            </div>
+            <div class="team-content">
+              <h3 class="name is-size-4">
+                <a class="link"href="/people/{{this.id}}">{{this.name}}</a>
+              </h3>
+              <h4 class="name is-size-7">
+                {{this.job}}</a>
+              </h4>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+<section class="section" id="review-section">
+  <div class="container">
+    <h3 class="is-size-3">Reviews</h3>
+    <div class="display-reviews">
+      {{#if reviews}}
+
+        {{#each reviews}}
+        <div class="columns review-wrapper">
+          <div class="column is-2">
+            <div class="review-picture">
+              <img class="profile-pic-nave review-size-picture" src="{{this.user.avatarUrl}}"/>
+            </div>
+          </div>
+          <div class="comment-inline column is-7">
+            <h5 class="is-size-5 username-review">{{this.user.username}}</h5>
+            <p class="is-size-6 review-comment">{{this.comment}}</p>
+          </div>
+          <form class="column is-2" action='/movies/movie-detail/{{this.movie}}/delete/{{this._id}}' method="POST">
+            <button type="submit" class="has-text-grey btn-remove-review">
+              <span class="icon-text">
+                <span class="icon">
+                  <i class="fas fa-trash"></i>
+                </span>
+                <span>
+                  Delete
+                </span>
+              </span>
+            </button>
+          </form>
+        </div>
+          
+        {{/each}}
+      {{/if}}
+    </div>
+    
+    <div class="review-input">
+      <form action='/movies/movie-detail/{{id}}' method='POST'>
+        <textarea type='text' name='comment' class="textarea is-success review-text-area" placeholder="Success textarea"></textarea>
+        <button class= "btn-remove-watchlist-profile" type="submit">Send review</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+
+
+  <section class="section">
+    <h4 class="is-size-3 title-recomendation">Recommendations:</h4>
+        <div class="container">
+          <div id="carousel-recomendation">
+            {{#each recommendations.results}}
+            <div class="item">
+                <div class="card-image">
+                <img src="https://image.tmdb.org/t/p/original/{{poster_path}}" alt="movie poster to {{this.original_title}}">
+                </div>
+            </div> 
+            {{/each}}
+          </div>
+        </div>
+  </section>
 
