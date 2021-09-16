@@ -3,12 +3,12 @@
     <div class="container">    
         <h1>Get your popcorns ready, it's movie time!</h1>
 
-        <form action="/auth/register" method="POST" enctype="multipart/form-data">
+        <form action="/user/profile/edit" method="POST" enctype="multipart/form-data">
             <div class="container">
                 <div class="columns mt-6 is-justify-content-center">
                     <div class= "column is-4">
                         <div class="field mt-4">
-                            <input class="input" type="text" name="username" value="{{user.username}}" mname="name" minlength="3" maxlength="50" required>
+                            <input class="input" type="text" name="name" value="{{user.name}}" name="name" minlength="3" maxlength="50" required>
                         </div>
                         <div class="field mt-4">
                             <input class="input" type="text" name="username" value="{{user.username}}" minlength="3" maxlength="10" required>
@@ -26,7 +26,7 @@
                         </div>
                         <div class="field mt-4">
                             <div class="control has-icons-left">
-                                <input class="input" type="password" name="password" id="password" required>
+                                <input class="input" type="password" name="password" id="password">
                                 <span class="icon is-small is-left">
                                     <i class="fas fa-lock"></i>
                                 </span>
