@@ -11,7 +11,24 @@ router.get('/:query', (req, res)=> {
 	const {query} = req.params
 	PopcornApi.getMovieBySearch(query)
 		.then((search) =>{
-			res.render('movies/movie-list', {movies: search.results, user: req.session.currentUser})
+			const foundMovies = search.results;
+
+			PopcornApi.getMovieGenres()
+				.then((movieGenres)=>{ 
+					const foundGenres = movieGenres.genres;
+
+					const movieWithGenre = foundMovies.map((movie) => {
+						movie.genre_ids = movie.genre_ids.map((genreId) => {
+							return  foundGenres.find((el) => el.id === genreId).name
+						})
+
+						movie.release_date = movie.release_date?.slice(0, 4)
+
+						return movie;
+					})
+
+					res.render('movies/movie-list', {query, movies: movieWithGenre, user: req.session.currentUser})
+				})
 		})
 });
 

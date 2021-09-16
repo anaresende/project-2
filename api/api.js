@@ -36,8 +36,19 @@ class PopcornApi {
       method: 'GET', 
       }).then((response)=> response.data)
       .catch((error) => error)
-
+      
     return searchResults;
+  } 
+
+  getMovieGenres = () => {
+    const movieGenres = this.api.request({ 
+        url:'/genre/movie/list',
+        method: 'GET', 
+      })
+      .then((response)=> response.data)
+      .catch((error) => error)
+
+    return movieGenres;
   } 
   
   getUpcomingMovies = () => {
