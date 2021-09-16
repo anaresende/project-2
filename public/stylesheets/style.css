@@ -33,9 +33,69 @@ a {
   background: transparent;
 }
 
+.navbar .navbar-start {
+  flex-grow: 1;
+}
+
 .navbar-item {
   color: white;
 
+}
+
+.btn-search-magnify {
+  border: 0;
+  background: transparent;
+  pointer-events: all !important;
+  cursor: pointer;
+  color: #858585 !important;
+
+}
+
+.profile-link {
+  list-style: none;
+  color: #fafafa;
+  font-size: 14px;
+  transition: 0.3 ease;
+}
+
+.profile-link:hover {
+  color: #3d3d3d;
+  
+}
+
+.profile-pic-nave {
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.btn-logout .btn-register {
+  background: #531DAB !important;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
+  border-radius: 2px;
+  padding: 0 6px !important;
+  color: #fafafa !important;
+  font-size: 14px;
+  transition: 1 ease-in-out;
+}
+
+.btn-register {
+  background: #531DAB !important;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
+  border-radius: 2px;
+  padding: 0 6px !important;
+  color: #fafafa !important;
+  font-size: 14px;
+  transition: 1 ease-in-out;
+}
+
+.btn-logout:hover {
+  color: #3d3d3d !important;
+  background-color: #fafafa !important;
+}
+
+.btn-register:hover {
+  color: #3d3d3d !important;
+  background-color: #fafafa !important;
 }
 
 .slider-pagination {
@@ -45,16 +105,37 @@ a {
 .slider-navigation-previous,
 .slider-navigation-next {
   color: #3d3d3d;
+  border-radius: 0;
+  width: 32px;
+  height: 32px;
+  transform: none;
 }
 
+.slider-navigation-previous {
+  margin-left: 5px;
+}
+
+.slider-navigation-next {
+  margin-right: 5px;
+}
+
+
+.slider {
+  overflow: hidden;
+}
+
+.popcorn-search-form .field {
+  width: 100%;
+}
 
 .popcorn-search-form {
   width: 100%;
   max-width: 500px;
+
 }
 
 .item {
-  padding: 0 10px;
+  padding: 0 5px;
 }
 
 /* ------------------------------------------------
@@ -80,7 +161,6 @@ a {
 
 .btn-remove-watchlist-profile:hover{
   opacity: 1;
-
 }
 
 .remove-from-list-profile {
@@ -89,3 +169,48 @@ a {
   left: 5px;
 }
 
+
+
+
+/* ------------------------------------------------
+movie search list
+------------------------------------------------ */
+
+
+.image-poster-list {
+  max-width: 150px;
+}
+
+.line-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  overflow: hidden;
+  max-width: 400px;
+  font-size: 0.9rem;
+  margin-top: 20px;
+}
+
+.movie-title-search {
+  list-style: none;
+  color: white;
+  font-weight: 700;
+  transition: color 0.3s ease-in-out;
+}
+
+.movie-title-search:hover {
+  color: #B8B8B8;
+}
+
+.search-list-view {
+  border-top: 1px solid #B8B8B8;
+}
+
+.genre-tag {
+  background: #26B79D;
+  border-radius: 0px 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: black;
+
+}

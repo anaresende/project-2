@@ -15,6 +15,7 @@ router.get('/', function(req, res, next) {
 
           PopcornApi.getPopularMovies()
            .then((popularMovies)=> {
+             console.log(popularMovies.results)
             res.render('index', { 
               title: 'Popcorn',
               user,
@@ -26,8 +27,6 @@ router.get('/', function(req, res, next) {
         })
       
     })
-
-  
       
 });
 

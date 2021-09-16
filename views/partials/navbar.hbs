@@ -14,10 +14,20 @@
     <div id="navbarHeader" class="navbar-menu">
       <div class="navbar-start">
         <form class="navbar-item popcorn-search-form control" action="/movies/search" method="POST">
-          <input class="input" type="text" name="search" placeholder="Search you Movie here!">
-          <button class="button" type="submit">Search</button>
+          <div class="field">
+            <p class="control is-small has-icons-right">
+              <input class="input is-small" type="text" name="search" placeholder="Search movie">
+              <button class="btn-search-magnify icon is-small is-right" type="submit">
+                <i class="fas fa-search"></i>
+              </button>
+            </p>
+          </div>
         </form>
         
+        
+      </div>
+
+      <div class="navbar-end">
         <a class="navbar-item"  href="/">
           Home
         </a>
@@ -25,30 +35,27 @@
         <a class="navbar-item"  href="/about-us">
           About Us
         </a>
-      </div>
 
-    {{#if user}}
-      <div class="navbar-end">
-        <div class="navbar-item">
-          <a class="" href="/user/profile">{{user.name}}</a>
-        </div>
-        <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-light" href="/auth/logout">Logout</a>
+        {{#if user}} 
+          <div class="navbar-item">
+            <img class="profile-pic-nave" src="{{user.avatarUrl}}"/>
+            <a class="profile-link" href="/user/profile">{{user.name}}</a>
           </div>
-        </div>
-      </div>
-    
-    {{else}}
-        <div class="navbar-end">
-        <div class="navbar-item">
-          <div class="buttons">
-            <a class="button is-primary"href="/auth/register">Sign up</a>
-            <a class="button is-light" href="/auth/login">Login</a>
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-light btn-logout" href="/auth/logout">Logout</a>
+            </div>
           </div>
-        </div>
+  
+          {{else}}
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="btn-register button is-primary"href="/auth/register">Sign up</a>
+              <a class="btn-login button is-light" href="/auth/login">Login</a>
+            </div>
+          </div>
+        {{/if}}
       </div>
-    {{/if}}
 
     </div>
   </nav>
