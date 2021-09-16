@@ -1,49 +1,115 @@
-<h1>here's your movie</h1>
-
-
-<h2>{{movie.original_title}}</h2>
-<h6>
-
-    {{#each movie.genres}}
-       — {{this.name}}
-    {{/each}}
-</h6>
-<br/>
-<h4>{{movie.overview}}</h4>
-<br/>
-<img src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" alt="" width="200px">
-<br/>
-<h4>Cast:</h4>
-<ul>
-  {{#each movie.credits.cast}}
-  <img src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="" width="75px">
-    <li><a href="/people/{{this.id}}">{{this.name}}</a> as {{this.character}}</li>
-  {{/each}}
-</ul>
-
-<h4>Crew:</h4>
-<ul>
-  {{#each movie.credits.crew}}
-  <img src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="" width="75px">
-  <li>{{this.job}}: <a href="/people/{{this.id}}">{{this.name}}</a></li>
-  {{/each}}
-</ul>
-
-<h4>Recommendations:</h4>
-<section class="section">
-    <div class="container">
-      <div id="carousel-watchlist">
-        {{#each movie.recommendations.results}}
-        <div class="item">
-            <div class="card-image">
-            <img src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" alt="movie poster to {{this.original_title}}">
+<section class="section cover-hero" style="background-image: url('https://image.tmdb.org/t/p/original/{{movie.backdrop_path}}')">
+</section>
+<section class="section movie-information">
+  <div class="container">
+    <div class="columns">
+      <div class="column">
+          {{#each movie.genres}}
+              <span class="genre-tag">{{this.name}}</span>
+          {{/each}}
+          <h2 class="is-size-1">{{movie.original_title}}</h2>
+          <div class="overview movie-description">
+            <h4>{{movie.overview}}</h4>
+          </div>
+      </div>  
+    </div>
+  </div>
+ </section> 
+ <section class="section">
+      <div class="container">
+        <div class="columns">
+          <div class="column is-4">
+            <div class="is-size-4">
+              <div class="buttons ml-4">
+                <h3>Want to create a Watchlist?</h3>
+                    <a class="btn-register button is-primary mt-4 ml-4"href="/auth/register">Sign up</a>
+                      <h3>Have already an account?</h3>
+                        <a class="btn-login button is-light mt-4 ml-4" href="/auth/login">Login</a>
+              </div>
             </div>
-        </div> 
-         {{/each}}
+        </div>
       </div>
     </div>
 </section>
 
-<h3>Want to create a Watchlist?</h3>
-<a href="/auth/register">Sign in to Popcorn</a>
+<section class="section">
+  <div class="container">
+    <h4 class="is-size-3 cast-title">Cast</h4>
+    <div class="columns is-multiline">
+      {{#each movie.credits.cast}}
+        <div class="column is-one-third">
+          <div class="our-team is-flex is-flex-direction-row card-cast">
+            <div class="picture">
+              <a class="link"href="/people/{{this.id}}">
+                <img src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="">
+                </a>
+            </div>
+            <div class="team-content">
+              <h3 class="name is-size-4">
+                <a class="link"href="/people/{{this.id}}">{{this.name}}</a>
+              </h3>
+              <h4 class="name is-size-7">
+                as {{this.character}}</a>
+              </h4>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container">
+    <h4 class="is-size-3 cast-title">Crew</h4>
+    <div class="columns is-multiline">
+      {{#each movie.credits.crew}}
+        <div class="column is-one-fourth">
+          <div class="our-team is-flex is-flex-direction-row card-cast">
+            <div class="picture">
+              {{#if this.profile_path}}
+               <a class="link"href="/people/{{this.id}}">
+                <img src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="">
+                </a>
+              {{else}}
+                <img src="/images/placeholderposter.png" alt="profile picture not found">
+              {{/if}}
+            </div>
+            <div class="team-content">
+              <h3 class="name is-size-4">
+                <a class="link"href="/people/{{this.id}}">{{this.name}}</a>
+              </h3>
+              <h4 class="name is-size-7">
+                {{this.job}}</a>
+              </h4>
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </div>
+</section>
+
+  <section class="section">
+    <h4 class="is-size-3 title-recomendation">Recommendations:</h4>
+        <div class="container">
+          <div id="carousel-recomendation">
+            {{#each movie.recommendations.results}}
+            <div class="item">
+                <div class="card-image">
+                  <a href="/movies/movie-detail/{{this.id}}">
+                <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="movie poster to {{this.original_title}}">
+                </a>
+                </div>
+            </div> 
+            {{/each}}
+          </div>
+        </div>
+  </section>
+
+
+
+
 
