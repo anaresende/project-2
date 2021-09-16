@@ -51,6 +51,8 @@ router.get('/movie-detail/:movieId', (req, res)=> {
 						.then((watch) => {
 							console.log('found', watch)
 							movie.watchlist = watch;
+							movie.credits.cast = movie.credits.cast.slice(0, 9)
+                            movie.credits.crew = movie.credits.crew.slice(0, 4)
 							res.render('movies/each-movie', {...movie, user: req.session.currentUser})
 						})
 						.catch((error) => {
@@ -62,6 +64,8 @@ router.get('/movie-detail/:movieId', (req, res)=> {
 		} else {
 			PopcornApi.getOneMovie(movieId)
 			.then((movie)=>{
+				movie.credits.cast = movie.credits.cast.slice(0, 9)
+                movie.credits.crew = movie.credits.crew.slice(0, 4)
 				res.render('movies/movie-detail-logout', {movie})
 			})
 		}

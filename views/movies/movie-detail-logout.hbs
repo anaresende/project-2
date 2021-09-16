@@ -16,17 +16,34 @@
 <h4>Cast:</h4>
 <ul>
   {{#each movie.credits.cast}}
-    <li>{{this.name}}</li>
+  <img src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="" width="75px">
+    <li><a href="/people/{{this.id}}">{{this.name}}</a> as {{this.character}}</li>
   {{/each}}
 </ul>
 
-<h4>recommendations</h4>
+<h4>Crew:</h4>
 <ul>
-{{#each movie.recommendations.results}}
-    <li>{{this.original_title}}</li>
-{{/each}}
+  {{#each movie.credits.crew}}
+  <img src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="" width="75px">
+  <li>{{this.job}}: <a href="/people/{{this.id}}">{{this.name}}</a></li>
+  {{/each}}
 </ul>
 
-<h3>Sign in to access your Watchlist</h3>
+<h4>Recommendations:</h4>
+<section class="section">
+    <div class="container">
+      <div id="carousel-watchlist">
+        {{#each movie.recommendations.results}}
+        <div class="item">
+            <div class="card-image">
+            <img src="https://image.tmdb.org/t/p/original/{{movie.poster_path}}" alt="movie poster to {{this.original_title}}">
+            </div>
+        </div> 
+         {{/each}}
+      </div>
+    </div>
+</section>
+
+<h3>Want to create a Watchlist?</h3>
 <a href="/auth/register">Sign in to Popcorn</a>
 
