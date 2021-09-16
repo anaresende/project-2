@@ -7,36 +7,6 @@ const { populate } = require('./../models/usermodel');
 const isLoggedIn = require('../middleware/isLoggedIn');
 const Watchlist = require('../models/watchlistmodel');
 
-router.get('/:query', (req, res)=> {
-	const {query} = req.params
-	PopcornApi.getMovieBySearch(query)
-		.then((search) =>{
-			const foundMovies = search.results;
-
-			PopcornApi.getMovieGenres()
-				.then((movieGenres)=>{ 
-					const foundGenres = movieGenres.genres;
-
-					const movieWithGenre = foundMovies.map((movie) => {
-						movie.genre_ids = movie.genre_ids.map((genreId) => {
-							return  foundGenres.find((el) => el.id === genreId).name
-						})
-
-						movie.release_date = movie.release_date?.slice(0, 4)
-
-						return movie;
-					})
-
-					res.render('movies/movie-list', {query, movies: movieWithGenre, user: req.session.currentUser})
-				})
-		})
-});
-
-router.post('/search', (req, res)=> {
-	const {search} = req.body
-	res.redirect(search);
-});
-
 router.get('/movie-detail/:movieId', (req, res)=> {
 	const {movieId} = req.params 
 	if (req.session.currentUser) {
@@ -123,7 +93,7 @@ router.post('/movie-detail/:id', (req, res) => {
 
 router.post('/movie-detail/:movieId/delete/:reviewId', (req, res)=> {
 	const {reviewId, movieId} = req.params;
-	console.log('entrouaqui')
+
     Review.findById(reviewId)
 	.then(review => {
 		if (req.session.currentUser._id == review.user) {
@@ -151,23 +121,46 @@ router.post('/movie-detail/:movieId/edit/:reviewId', (req, res)=> {
 	}).catch(error => console.log(error))
 })
 
+router.get('/:page/:query', (req, res)=> {
+	const {query, page} = req.params
+	PopcornApi.getMovieBySearch(query, page)
+		.then((search) =>{
+			console.log(search)
+			const foundMovies = search.results;
 
+			PopcornApi.getMovieGenres()
+				.then((movieGenres)=>{ 
+					const foundGenres = movieGenres.genres;
 
+					const movieWithGenre = foundMovies.map((movie) => {
+						movie.genre_ids = movie.genre_ids.map((genreId) => {
+							return  foundGenres.find((el) => el.id === genreId).name
+						})
 
+						movie.release_date = movie.release_date?.slice(0, 4)
 
+						return movie;
+					})
+					let nextPage = null
+					let previousPage = null
 
-// //Must be fixed
-// router.post('/movie-detail/:movieId/edit/:reviewId', (req, res)=> {
-// 	const {reviewId, movieId} = req.params;
-// 	const { comment } = req.body;
-// 	console.log(reviewId, movieId)
-//     Review.findByIdAndUpdate(
-// 		req.session.currentUser._id,
-// 		reviewId,
-// 		comment 
-// 	)
-//     .then(updatedReview => res.redirect(`/movies/movie-detail/${movieId}`))
-//     .catch(error=> console.log(error))
-// })
+					if(parseInt(page) - 1 >= 1) {
+						previousPage = parseInt(page) - 1
+					}
+
+					if(parseInt(page) + 1 <= search.total_pages) {
+						nextPage = parseInt(page) + 1
+					}
+
+					res.render('movies/movie-list', {query, previousPage, nextPage, movies: movieWithGenre, user: req.session.currentUser})
+				})
+		})
+});
+
+router.post('/search/:page', (req, res)=> {
+	const {search} = req.body
+	const {page} =req.params
+	res.redirect(`/movies/${page}/${search}`);
+});
 
 module.exports = router;

@@ -331,6 +331,10 @@ movie search list
   margin-bottom: 40px;
 }
 
+#carousel-recomendation .slider {
+  overflow: initial;
+}
+
 .review-input {
   max-width: 500px;
 }
@@ -381,3 +385,4 @@ movie search list
   background: none;
   border: 0;
 }
+

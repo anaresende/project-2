@@ -22,7 +22,7 @@ window.onload = ()  => {
 
     bulmaCarousel.attach('#carousel-recomendation', {
       slidesToScroll: 1,
-      slidesToShow: 8,
+      slidesToShow: 6,
       pagination: false,
       infinite: true
     });
