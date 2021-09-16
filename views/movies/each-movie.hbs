@@ -35,7 +35,10 @@
         <div class="column is-one-third">
           <div class="our-team is-flex is-flex-direction-row card-cast">
             <div class="picture">
+                <a class="link"href="/people/{{this.id}}">
               <img src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="">
+              </a>
+
             </div>
             <div class="team-content">
               <h3 class="name is-size-4">
@@ -63,7 +66,9 @@
           <div class="our-team is-flex is-flex-direction-row card-cast">
             <div class="picture">
               {{#if profile_path}}
+              <a class="link"href="/people/{{this.id}}">
                 <img src="https://image.tmdb.org/t/p/original/{{this.profile_path}}" alt="">
+                </a>
               {{else}}
                 <img src="/images/placeholderposter.png" alt="profile picture not found">
               {{/if}}
@@ -141,7 +146,9 @@
             {{#each recommendations.results}}
             <div class="item">
                 <div class="card-image">
+                  <a href="/movies/movie-detail/{{this.id}}">
                 <img src="https://image.tmdb.org/t/p/original/{{poster_path}}" alt="movie poster to {{this.original_title}}">
+                  </a>
                 </div>
             </div> 
             {{/each}}
