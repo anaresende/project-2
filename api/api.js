@@ -13,7 +13,7 @@ class PopcornApi {
       }
     )
   }
-  // CHANGE THE PATHS ACCORIDNG TO API DOCUMENTATION
+  
   getOneMovie = (id)=> {
     const movieDetails = this.api.request({
       url: `/movie/${id}`,
@@ -27,11 +27,12 @@ class PopcornApi {
   } 
 
 
-  getMovieBySearch = (search) => {
+  getMovieBySearch = (search, page) => {
     const searchResults = this.api.request({ 
       url:'/search/movie',
       params: {
           query: search,
+          page
         },
       method: 'GET', 
       }).then((response)=> response.data)
@@ -96,6 +97,18 @@ class PopcornApi {
     
     return peopleDetails
   }
+
+  getVideo = (id)=> {
+    const videoTrailer = this.api.request({
+      url: `/movie/${id}/videos`,
+      params: {
+          append_to_response: 'credits'
+        },
+      method: 'GET', 
+      }).then((response)=> response.data)
+      .catch((error)=> error)
+    return videoTrailer
+  } 
 
 }
 

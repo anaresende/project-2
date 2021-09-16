@@ -15,14 +15,26 @@ router.get('/', function(req, res, next) {
 
           PopcornApi.getPopularMovies()
            .then((popularMovies)=> {
-             console.log(popularMovies.results)
-            res.render('index', { 
-              title: 'Popcorn',
-              user,
-              topRatedMovies: topRatedMovies.results,
-              upcomingMovies: upcomingMovies.results,
-              popularMovies: popularMovies.results,
-            });
+
+            const randomIndexForVideo = Math.ceil(Math.random() * (popularMovies.results.length - 1))
+            const randomIndexForPoster = Math.ceil(Math.random() * (popularMovies.results.length - 1))
+
+            PopcornApi.getVideo(popularMovies.results[randomIndexForVideo].id)
+              .then((video)=> {
+                const lastIndex = video.results.length - 1
+                const trailer = video.results[lastIndex]?.key;
+                const poster = popularMovies.results[randomIndexForPoster].poster_path
+
+                res.render('index', { 
+                  title: 'Popcorn',
+                  user,
+                  topRatedMovies: topRatedMovies.results,
+                  upcomingMovies: upcomingMovies.results,
+                  popularMovies: popularMovies.results,
+                  trailer,
+                  poster
+                });
+              })
           });
         })
       

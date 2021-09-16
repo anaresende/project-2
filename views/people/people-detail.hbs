@@ -29,6 +29,27 @@
   </section>
 {{/if_eq}}
 
+{{#if_eq people.known_for_department 'Directing'}}
+    <section class="section">
+    <div class="container">
+      <h1 class="is-size-4 mb-6">Known for</h1>
+      
+      <div id="carousel-watchlist">  
+        {{#each people.movie_credits.cast}}
+            <div class="item">
+                <a href="/movies/movie-detail/{{this.id}}">
+                    <div class="card-image">
+                      <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="movie poster to {{this.original_title}}">
+                    </div>
+                </a>
+            </div>
+        {{/each}}
+      </div>
+    </div>
+  </section>
+{{/if_eq}}
+
+
 
 
 
