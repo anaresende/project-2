@@ -3,37 +3,42 @@
     <div class="container is-max-desktop">
         <h1 class="is-size-2 mb-6">Results for "{{query}}"</h1>
     
-    {{#if movies}}
-        {{#each movies}}
-                <div class="columns search-list-view">
-                    <div class="column is-one-third image-poster-list">
-                        <a href="/movies/movie-detail/{{this.id}}"> 
-                            {{#if poster_path }}
-                                <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="{{this.original_title}} poster" >    
-                            {{else}}
-                                <img src="/images/placeholderposter.png" alt="poster not available">
-                            {{/if}}
-                        </a>
+        {{#if movies}}
+            {{#each movies}}
+                    <div class="columns search-list-view">
+                        <div class="column is-one-third image-poster-list">
+                            <a href="/movies/movie-detail/{{this.id}}"> 
+                                {{#if poster_path }}
+                                    <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="{{this.original_title}} poster" >    
+                                {{else}}
+                                    <img src="/images/placeholderposter.png" alt="poster not available">
+                                {{/if}}
+                            </a>
+                        </div>
+                        <div class="column">
+                            {{#each this.genre_ids}}
+                                <span class="genre-tag">{{this}}</span>
+                            {{/each}}
+                            <a href="/movies/movie-detail/{{this.id}}">
+                                <h2 class="is-size-3 movie-title-search">{{this.original_title}}</h2>
+                            </a>
+                        <h3 class="is-size-6">{{this.release_date}}</h3>
+                        <p class="line-clamp">{{this.overview}}</p>
+                        </div>
                     </div>
-                    <div class="column">
-                        {{#each this.genre_ids}}
-                            <span class="genre-tag">{{this}}</span>
-                        {{/each}}
-                        <a href="/movies/movie-detail/{{this.id}}">
-                            <h2 class="is-size-3 movie-title-search">{{this.original_title}}</h2>
-                        </a>
-                     <h3 class="is-size-6">{{this.release_date}}</h3>
-                     <p class="line-clamp">{{this.overview}}</p>
-                    </div>
-                </div>
+                
             
-        
-        {{/each}}
-    {{else}}
-        <h2 class="is-size-6">Ups, that film does not exist!</h2>
-        <h2 class="is-size-4">Don't waste your popcorn, search for another.</h2>
-    {{/if}}
+            {{/each}}
+        {{else}}
+            <h2 class="is-size-6">Ups, that film does not exist!</h2>
+            <h2 class="is-size-4">Don't waste your popcorn, search for another.</h2>
+        {{/if}}
             
-        
+        {{#if previousPage}}
+            <a href="/movies/{{previousPage}}/{{query}}">Previous page</a>
+        {{/if}}        
+        {{#if nextPage}}
+            <a href="/movies/{{nextPage}}/{{query}}">Next page</a>
+        {{/if}}
     </div>
 </section>

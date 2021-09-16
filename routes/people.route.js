@@ -11,7 +11,7 @@ router.get('/:personId', (req, res)=> {
 	const {personId} = req.params 
 		PopcornApi.getPeopleDetails(personId)
             .then((people) => {
-                console.log(people, people.known_for_department)
+                console.log(people)
                 res.render('people/people-detail', {people, user: req.session.currentUser} )
             }).catch((error)=> error)
 })

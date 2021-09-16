@@ -7,36 +7,6 @@ const { populate } = require('./../models/usermodel');
 const isLoggedIn = require('../middleware/isLoggedIn');
 const Watchlist = require('../models/watchlistmodel');
 
-router.get('/:query', (req, res)=> {
-	const {query} = req.params
-	PopcornApi.getMovieBySearch(query)
-		.then((search) =>{
-			const foundMovies = search.results;
-
-			PopcornApi.getMovieGenres()
-				.then((movieGenres)=>{ 
-					const foundGenres = movieGenres.genres;
-
-					const movieWithGenre = foundMovies.map((movie) => {
-						movie.genre_ids = movie.genre_ids.map((genreId) => {
-							return  foundGenres.find((el) => el.id === genreId).name
-						})
-
-						movie.release_date = movie.release_date?.slice(0, 4)
-
-						return movie;
-					})
-
-					res.render('movies/movie-list', {query, movies: movieWithGenre, user: req.session.currentUser})
-				})
-		})
-});
-
-router.post('/search', (req, res)=> {
-	const {search} = req.body
-	res.redirect(search);
-});
-
 router.get('/movie-detail/:movieId', (req, res)=> {
 	const {movieId} = req.params 
 	if (req.session.currentUser) {
@@ -49,7 +19,6 @@ router.get('/movie-detail/:movieId', (req, res)=> {
 
 					Watchlist.findOne({"movie.id": movieId, user: req.session.currentUser._id})
 						.then((watch) => {
-							console.log('found', watch)
 							movie.watchlist = watch;
 							movie.credits.cast = movie.credits.cast.slice(0, 9)
                             movie.credits.crew = movie.credits.crew.slice(0, 4)
@@ -150,6 +119,52 @@ router.post('/movie-detail/:movieId/edit/:reviewId', (req, res)=> {
 		} 
 	}).catch(error => console.log(error))
 })
+
+
+
+router.get('/:page/:query', (req, res)=> {
+	const {query, page} = req.params
+	PopcornApi.getMovieBySearch(query, page)
+		.then((search) =>{
+			console.log(search)
+			const foundMovies = search.results;
+
+			PopcornApi.getMovieGenres()
+				.then((movieGenres)=>{ 
+					const foundGenres = movieGenres.genres;
+
+					const movieWithGenre = foundMovies.map((movie) => {
+						movie.genre_ids = movie.genre_ids.map((genreId) => {
+							return  foundGenres.find((el) => el.id === genreId).name
+						})
+
+						movie.release_date = movie.release_date?.slice(0, 4)
+
+						return movie;
+					})
+					let nextPage = null
+					let previousPage = null
+
+					if(parseInt(page) - 1 >= 1) {
+						previousPage = parseInt(page) - 1
+					}
+
+					if(parseInt(page) + 1 <= search.total_pages) {
+						nextPage = parseInt(page) + 1
+					}
+
+					res.render('movies/movie-list', {query, previousPage, nextPage, movies: movieWithGenre, user: req.session.currentUser})
+				})
+		})
+
+	});
+
+router.post('/search/:page', (req, res)=> {
+	const {search} = req.body
+	const {page} =req.params
+	res.redirect(`/movies/${page}/${search}`);
+});
+
 
 
 
