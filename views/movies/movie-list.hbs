@@ -35,10 +35,28 @@
         {{/if}}
             
         {{#if previousPage}}
-            <a href="/movies/{{previousPage}}/{{query}}">Previous page</a>
+            <a class="mr-4 link" href="/movies/{{previousPage}}/{{query}}">
+                <span class="icon-text">
+                    <span class="icon">
+                    <i class="fas fa-arrow-left"></i>
+                    </span>
+                    <span>
+                      Previous page
+                    </span>
+                </span>
+            </a>
         {{/if}}        
         {{#if nextPage}}
-            <a href="/movies/{{nextPage}}/{{query}}">Next page</a>
+            <a class="link" href="/movies/{{nextPage}}/{{query}}">
+            <span class="icon-text">
+                    <span>
+                        Next page
+                    </span>
+                    <span class="icon">
+                    <i class="fas fa-arrow-right"></i>
+                    </span>
+                </span>
+            </a>
         {{/if}}
     </div>
 </section>

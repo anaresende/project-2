@@ -28,31 +28,29 @@
       </div>
 
       <div class="navbar-end">
-        <a class="navbar-item"  href="/">
+        <a class="navbar-item link"  href="/">
           Home
         </a>
 
-        <a class="navbar-item"  href="/about-us">
+        <a class="navbar-item mr-6 link"  href="/about-us">
           About Us
         </a>
 
         {{#if user}} 
-          <div class="navbar-item">
-            <img class="profile-pic-nave" src="{{user.avatarUrl}}"/>
-            <a class="profile-link" href="/user/profile">{{user.name}}</a>
+          <div class="navbar-item ml-6">
+            <a class="profile-link" href="/user/profile">
+              <img class="profile-pic-nave" src="{{user.avatarUrl}}"/>
+              {{user.name}}
+            </a>
           </div>
           <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-light btn-logout" href="/auth/logout">Logout</a>
-            </div>
+              <a class=" btn-purple" href="/auth/logout">Logout</a>
           </div>
   
           {{else}}
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="btn-register button is-primary"href="/auth/register">Sign up</a>
-              <a class="btn-login button is-light" href="/auth/login">Login</a>
-            </div>
+          <div class="navbar-item ml-6">
+              <a class="btn-purple "href="/auth/register">Sign up</a>
+              <a class="btn-green ml-4" href="/auth/login">Login</a>
           </div>
         {{/if}}
       </div>

@@ -17,13 +17,15 @@ router.get('/', function(req, res, next) {
            .then((popularMovies)=> {
 
             const randomIndexForVideo = Math.ceil(Math.random() * (popularMovies.results.length - 1))
-            const randomIndexForPoster = Math.ceil(Math.random() * (popularMovies.results.length - 1))
+            const randomIndexForPoster = Math.ceil(Math.random() * (popularMovies.results.length - 1 - 3))
 
             PopcornApi.getVideo(popularMovies.results[randomIndexForVideo].id)
               .then((video)=> {
                 const lastIndex = video.results.length - 1
                 const trailer = video.results[lastIndex]?.key;
-                const poster = popularMovies.results[randomIndexForPoster].poster_path
+                const randomPosters = popularMovies.results.slice(randomIndexForPoster, randomIndexForPoster + 3)
+
+                console.log(randomPosters);
 
                 res.render('index', { 
                   title: 'Popcorn',
@@ -32,7 +34,7 @@ router.get('/', function(req, res, next) {
                   upcomingMovies: upcomingMovies.results,
                   popularMovies: popularMovies.results,
                   trailer,
-                  poster
+                  randomPosters
                 });
               })
           });

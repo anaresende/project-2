@@ -1,5 +1,5 @@
-<section class="section cover-hero" style="background-image: url('https://image.tmdb.org/t/p/original/{{backdrop_path}}')">
-</section>
+<section class="section cover-hero" style="background-image: url('https://image.tmdb.org/t/p/original/{{backdrop_path}}')"></section>
+
 <section class="section movie-information">
   <div class="container">
     <div class="columns">
@@ -60,7 +60,7 @@
     <div class="columns is-multiline">
       {{#each credits.crew}}
         <div class="column is-one-fourth">
-          <div class="our-team is-flex is-flex-direction-row card-cast">
+          <div class="our-team is-flex is-flex-direction-row card-crew">
             <div class="picture">
               {{#if profile_path}}
               <a class="link"href="/people/{{this.id}}">
@@ -88,9 +88,8 @@
 <section class="section" id="review-section">
   <div class="container">
     <h3 class="is-size-3">Reviews</h3>
-    <div class="display-reviews">
-      {{#if reviews}}
-
+    {{#if reviews}}
+      <div class="display-reviews">
         {{#each reviews}}
         <div class="columns review-wrapper">
           <div class="column is-2">
@@ -98,27 +97,29 @@
               <img class="profile-pic-nave review-size-picture" src="{{this.user.avatarUrl}}"/>
             </div>
           </div>
-          <div class="comment-inline column is-7">
+          <div class="comment-inline pl-0 column is-8">
             <h5 class="is-size-5 username-review">{{this.user.username}}</h5>
             <p class="is-size-6 review-comment">{{this.comment}}</p>
           </div>
-          <form class="column is-2" action='/movies/movie-detail/{{this.movie}}/delete/{{this._id}}' method="POST">
-            <button type="submit" class="has-text-grey btn-remove-review">
-              <span class="icon-text">
-                <span class="icon">
-                  <i class="fas fa-trash"></i>
+          {{#if_eq ../user._id this.user._id}}
+            <form class="column is-2 p-0" action='/movies/movie-detail/{{this.movie}}/delete/{{this._id}}' method="POST">
+              <button type="submit" class="has-text-grey btn-remove-review">
+                <span class="icon-text">
+                  <span class="icon">
+                    <i class="fas fa-trash"></i>
+                  </span>
+                  <span>
+                    Delete
+                  </span>
                 </span>
-                <span>
-                  Delete
-                </span>
-              </span>
-            </button>
-          </form>
+              </button>
+            </form>
+          {{/if_eq}}
         </div>
           
         {{/each}}
-      {{/if}}
-    </div>
+      </div>
+    {{/if}}
     
     <div class="review-input">
       <form action='/movies/movie-detail/{{id}}' method='POST'>
@@ -131,22 +132,22 @@
 
 
 
-  <section class="section">
-    <div class="container">
-      <h4 class="is-size-3 title-recomendation">Recommendations:</h4>
-        <div class="container">
-          <div id="carousel-recomendation">
-            {{#each recommendations.results}}
-            <div class="item">
-                <div class="card-image">
-                  <a href="/movies/movie-detail/{{this.id}}">
-                <img src="https://image.tmdb.org/t/p/original/{{poster_path}}" alt="movie poster to {{this.original_title}}">
-                  </a>
-                </div>
-            </div> 
-            {{/each}}
-          </div>
+<section class="section">
+  <div class="container">
+    <h4 class="is-size-3 title-recomendation">Recommendations:</h4>
+      <div class="container">
+        <div id="carousel-recomendation">
+          {{#each recommendations.results}}
+          <div class="item">
+              <div class="card-image">
+                <a href="/movies/movie-detail/{{this.id}}">
+              <img src="https://image.tmdb.org/t/p/original/{{poster_path}}" alt="movie poster to {{this.original_title}}">
+                </a>
+              </div>
+          </div> 
+          {{/each}}
         </div>
-    </div>
-  </section>
+      </div>
+  </div>
+</section>
 
