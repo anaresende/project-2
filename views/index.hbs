@@ -1,25 +1,32 @@
-<div class="columns">
-  <div class="column iis-three-quarters">
-  {{#if trailer}}
-    <section class="section">
-      <div class="container">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </div>
-    </section>    
-  {{/if}}
-  </div>
-  <div class="column">
-    <section class="section">
-        <div class="container">
-          <img src="https://image.tmdb.org/t/p/original/{{poster}}" alt="movie poster">
+<section class="section">
+  <div class="container">
+    <div class="columns">
+      {{#if trailer}}
+        <div class="column is-half">
+          <h1 class="is-size-4 mb-5">Now in theaters</h1>
+
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/{{trailer}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
         </div>
-    </section> 
-  </div> 
-</div>
+      {{/if}}
+      <div class="column is-half">
+        <h1 class="is-size-4 mb-5">Top movies this week</h1>
+        <div class="columns">
+          {{#each randomPosters}}
+            <div class="column is-one-third">
+                  <a href="/movies/movie-detail/{{this.id}}">
+                    <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="movie poster">
+                  </a>
+            </div> 
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="section">
   <div class="container">
-    <h1 class="is-size-4 mb-6">Upcoming</h1>
+    <h1 class="is-size-4 mb-5">Upcoming</h1>
     <div id="carousel-upcoming">
       
       {{#each upcomingMovies}}
@@ -38,7 +45,7 @@
 
 <section class="section">
   <div class="container">
-    <h1 class="is-size-4 mb-6">Top Rated</h1>
+    <h1 class="is-size-4 mb-5">Top Rated</h1>
     <div id="carousel-topRated">
       
       {{#each topRatedMovies}}

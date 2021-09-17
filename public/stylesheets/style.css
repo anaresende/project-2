@@ -1,17 +1,22 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
 @import "https://cdn.jsdelivr.net/npm/bulma-carousel@4.0.3/dist/css/bulma-carousel.min.css";
-
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
 html,
 body {
   min-height: 100vh;
 }
 
+.main {
+  min-height: calc(100vh - 300px);
+}
+
 body {
   margin: 0;
-  font: "Roboto";
+  font-family: "Roboto";
   background-color: #3d3d3d;
   color: white;
 }
+
 
 a {
   color: #00B7FF;
@@ -55,11 +60,18 @@ a {
   list-style: none;
   color: #fafafa;
   font-size: 14px;
-  transition: 0.3 ease;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+}
+
+.profile-link img {
+  height: 1.75rem;
+  width: 1.75rem;
 }
 
 .profile-link:hover {
-  color: #3d3d3d;
+  color: #b8b8b8;
   
 }
 
@@ -68,35 +80,40 @@ a {
   margin-right: 10px;
 }
 
-.btn-logout  {
-  background: #531DAB !important;
+.btn-green {
+  background: #26B79D !important;
   box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
+  border: 0;
+  line-height: 20px;
   border-radius: 2px;
-  padding: 0 6px !important;
   color: #fafafa !important;
   font-size: 14px;
-  transition: 1 ease-in-out;
+  transition: all 0.3s ease-in-out;
+  padding: 2px 8px;
 }
 
-.btn-register {
-  background: #531DAB !important;
-  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
-  border-radius: 2px;
-  padding: 0 6px !important;
-  color: #fafafa !important;
-  font-size: 14px;
-  transition: 1 ease-in-out;
-}
-
-.btn-logout:hover {
+.btn-green:hover {
   color: #3d3d3d !important;
   background-color: #fafafa !important;
 }
 
-.btn-register:hover {
+
+.btn-purple {
+  background: #531DAB !important;
+  box-shadow: 0px 2px 0px rgba(0, 0, 0, 0.043);
+  border-radius: 2px;
+  color: #fafafa !important;
+  font-size: 14px;
+  line-height: 20px;
+  transition: all 0.3s ease-in-out;
+  padding: 2px 8px;
+}
+
+.btn-purple:hover {
   color: #3d3d3d !important;
   background-color: #fafafa !important;
 }
+
 
 .slider-pagination {
   display: none;
@@ -140,20 +157,10 @@ a {
 
 .footer {
   background: linear-gradient(90deg, rgba(83, 29, 171, 0.8) 0%, rgba(49, 186, 162, 0.512) 100%);
-  backdrop-filter: blur(10px);
-  position: sticky;
-  top: 0;
   z-index: 3;
   color: white !important;
   padding: 1.5rem
 }
-
-.footer a{
-  style: none !important;
-  ;
-}
-
-
 
 /* ------------------------------------------------
   User profile
@@ -184,6 +191,15 @@ a {
   position: absolute;
   bottom: 20px;
   left: 5px;
+}
+
+.btn-edit{
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-edit:hover {
+  color: #fafafa !important;
+  cursor: pointer;
 }
 
 
@@ -241,7 +257,7 @@ movie search list
 
 }
 
-.movie-information {
+.movie-information .columns {
   max-width: 1000px;
 }
 
@@ -270,7 +286,6 @@ movie search list
 
 .our-team {
   padding: 30px 0 40px;
-  margin-bottom: 30px;
   background-color: transparent;
   text-align: center;
   position: relative;
@@ -319,8 +334,21 @@ movie search list
   color: #b8b8b8;
 }
 
+.header .navbar .link {
+  background: none;
+}
+
+.header .navbar .link:hover {
+  color: #b8b8b8;
+}
+
 .card-cast {
  padding: 0;
+}
+
+.card-crew .picture {
+  width: 80px;
+  height: 80px;
 }
 
 .cast-title {
@@ -346,7 +374,7 @@ movie search list
 .display-reviews {
   margin-bottom: 40px;
   margin-top: 40px;
-  max-width: 700px;
+  max-width: 500px;
   width: 100%;
 }
 
@@ -358,13 +386,13 @@ movie search list
   width: 50px !important;
   height: 50px !important;
   border-radius: 50%;
-  margin-right: 20px;
   display: block !important;
 }
 
 .review-picture img {
   width: 100% !important;
   background: 100% !important;
+  height: 100% !important;
 }
 
 
@@ -384,18 +412,56 @@ movie search list
 .btn-remove-review {
   background: none;
   border: 0;
+  transition: color 0.3s ease-in-out;
 }
 
-.social-media img{
-  display: flex !important;
-  flex-direction: row;
-  align-content: space-between;
-  
+.btn-remove-review:hover {
+  color: #fafafa !important;
+  cursor: pointer;
+}
+
+.logo-footer {
+  display: block;
+  margin-left: 35px;
+}
+
+.social-media {
+  margin-top: 20px;
 }
 
 .cover-hero-about{
-  background-image: url('/images/about-us.png');
+    background-image: url('/images/about-us.png');
     width: 100%;
-    height: 260px;
+    height: 500px;
     background-size: cover;
   }
+
+.cover-hero-about .container, 
+.cover-hero-about .columns {
+  height: 100%;
+}  
+
+.social-link {
+  margin-right: 30px;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-copy {
+  margin-top: -50px;
+}
+
+/* ------------------------------------------------
+  People page
+------------------------------------------------ */
+
+.people-profile {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+}

@@ -1,18 +1,22 @@
-<h1>here's People</h1>
-
-
-<img src="https://image.tmdb.org/t/p/original/{{people.profile_path}}" alt="" width="200px">
-<br/>
-<h2>{{people.name}}</h2>
-<br/>
-<p>{{people.biography}}</p>
-<p>known for: {{people.known_for_department}}</p>
-<br/>
+<section class="section">
+  <div class="container columns">
+    <div class="column is-4">
+      <div class="people-profile" style="background-image:url('https://image.tmdb.org/t/p/original/{{people.profile_path}}')" ></div>
+    </div>
+    <div class="column ">
+      <h2 class="is-size-2">{{people.name}}</h2>
+      <h4 class="is-size-5">{{people.birthday}}</h4>
+      <h4 class="is-size-6">{{people.place_of_birth}}</h4>
+      <i class="">Known for {{people.known_for_department}}</i>
+      <p class="mt-5">{{people.biography}}</p>
+    </div>
+  </div>
+</section>
 
 {{#if_eq people.known_for_department 'Acting'}}
     <section class="section">
     <div class="container">
-      <h2 class="is-size-4 mb-6">Known for</h2>
+      <h2 class="is-size-4 mb-6">Also seen on</h2>
       
       <div id="carousel-watchlist">  
         {{#each people.movie_credits.cast}}
@@ -27,12 +31,12 @@
       </div>
     </div>
   </section>
-{{/if_eq}}
-
-{{#if_eq people.known_for_department 'Directing'}}
+ 
+{{else}}
+  
     <section class="section">
     <div class="container">
-      <h1 class="is-size-4 mb-6">Known for</h1>
+      <h1 class="is-size-4 mb-6">Other work</h1>
       
       <div id="carousel-watchlist">  
         {{#each people.movie_credits.crew}}

@@ -20,12 +20,10 @@
         <div class="columns">
           <div class="column is-4">
             <div class="is-size-4">
-              <div class="buttons ml-4">
-                <h3>Want to create a Watchlist?</h3>
-                    <a class="btn-register button is-primary mt-4 ml-4"href="/auth/register">Sign up</a>
-                      <h3>Have already an account?</h3>
-                        <a class="btn-login button is-light mt-4 ml-4" href="/auth/login">Login</a>
-              </div>
+              
+              <a class="btn-green mr-3" href="/auth/login">Add to Watchlist</a>
+              <a class="btn-purple" href="/auth/register">Don't have an account?</a>
+            
             </div>
         </div>
       </div>
@@ -67,7 +65,7 @@
     <div class="columns is-multiline">
       {{#each movie.credits.crew}}
         <div class="column is-one-fourth">
-          <div class="our-team is-flex is-flex-direction-row card-cast">
+          <div class="our-team is-flex is-flex-direction-row card-crew">
             <div class="picture">
               {{#if this.profile_path}}
                <a class="link"href="/people/{{this.id}}">
@@ -92,22 +90,25 @@
   </div>
 </section>
 
-  <section class="section">
+<section class="section">
+  <div class="container">
     <h4 class="is-size-3 title-recomendation">Recommendations:</h4>
-        <div class="container">
-          <div id="carousel-recomendation">
-            {{#each movie.recommendations.results}}
-            <div class="item">
-                <div class="card-image">
-                  <a href="/movies/movie-detail/{{this.id}}">
-                <img src="https://image.tmdb.org/t/p/original/{{this.poster_path}}" alt="movie poster to {{this.original_title}}">
+      <div class="container">
+        <div id="carousel-recomendation">
+          {{#each movie.recommendations.results}}
+          <div class="item">
+              <div class="card-image">
+                <a href="/movies/movie-detail/{{this.id}}">
+              <img src="https://image.tmdb.org/t/p/original/{{poster_path}}" alt="movie poster to {{this.original_title}}">
                 </a>
-                </div>
-            </div> 
-            {{/each}}
-          </div>
+              </div>
+          </div> 
+          {{/each}}
         </div>
-  </section>
+      </div>
+  </div>
+</section>
+
 
 
 
