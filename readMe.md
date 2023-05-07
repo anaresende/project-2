@@ -23,7 +23,7 @@ You will be able to find also information about the Cast and the Crew and movies
 <li>Movie-search-results - find your favorite films, checkout the upcoming movies, recommendations.</li>
 </ul>
 
-<h2>MVP</h2>
+<h2>Features</h2>
 <ul>
 <li>Wireframe</li>
 <li>External API for movies</li>
@@ -36,21 +36,6 @@ You will be able to find also information about the Cast and the Crew and movies
 <li>Search bar</li>
 <li>Add reviews</li>
 <li>Add to watchlist</li>
-</ul>
-
-<h2>BACKLOG</h2>
-
-<ul>
-<li>Information about the Cast and Crew</li>
-<li>Cast/Crew movies related</li>
-<li>Delete your reviews</li>
-<li>Show delete button only when you are logged in</li>
-<li>Delete movies from Watchlist</li>
-<li>Add upcoming films to the home</li>
-<li>Add random trailers and posters to home</li>
-<li>Top rated films</li>
-<li>Edit profile</li>
-<li>Pagination on search results</li>
 </ul>
 
 <h2>Additional Links</h2>
