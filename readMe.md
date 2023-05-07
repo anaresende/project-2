@@ -20,7 +20,7 @@ You will be able to find also information about the Cast and the Crew and movies
 
 <li>Login - Once you are logged, you will be able to add movies to your watchlist and leave a review on your favorite movies and also to delete them.</li>
 
-<li>Movie-search-results - find your favorite films, checkout the upcoming movies, recommendations…</li>
+<li>Movie-search-results - find your favorite films, checkout the upcoming movies, recommendations.</li>
 </ul>
 
 <h2>MVP</h2>
