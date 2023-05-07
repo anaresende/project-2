@@ -39,6 +39,4 @@ You will be able to find also information about the Cast and the Crew and movies
 </ul>
 
 <h2>Additional Links</h2>
-
-
 https://popcornmovie.herokuapp.com
